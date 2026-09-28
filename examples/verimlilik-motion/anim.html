@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Verimlilik ve Kârlılık — tanıtım</title><link rel="stylesheet" href="fonts.css">
+<style>
+  html,body{margin:0;height:100%;background:#1b1a17}
+  body{display:flex;align-items:center;justify-content:center}
+  canvas{max-width:100vw;max-height:100vh;aspect-ratio:16/9;display:block}
+  body.render{display:block;background:#f6f4ef} body.render canvas{max-width:none;max-height:none}
+</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+//  Verimlilik ve Kârlılık — ekran tanıtımı, "veri görselleştirme" tarzında
+//  (yasinozmeen/animasyon-stil-katalogu → stiller/veri: editoryal veri gazeteciliği).
+//  window.draw({t}) → JPEG base64. Tarayıcıda doğrudan açılınca kendi kendine oynar.
+//
+//  Giriş   : başlık + dört bölümlük içindekiler cetveli
+//  01      : Genel Görünüm   — günlük portföy net kârı çizgisi, sinyal birim kareleri
+//  02      : Müşteri Özeti   — 2024→2025 dambıl grafiği, sağlık / cüzdan payı halkaları
+//  03      : Kârlılık        — şelale grafiği, genel toplam denklemi
+//  04      : Taahhüt İzleme  — gerçekleşme çubukları, hedef çizgisi, katkı sütunu
+//  Kapanış : içerik söner, ürün işareti
+//  Geçişler: sayfa yukarı kayar (scrollytelling).
+// ─────────────────────────────────────────────────────────────────────────────
+const W = 1920, H = 1080, DUR = 31.0;
+const cv = document.getElementById('c'); const ctx = cv.getContext('2d');
+const mk = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, p) => a + (b - a) * p;
+const eOut = x => 1 - Math.pow(1 - x, 3), eOut4 = x => 1 - Math.pow(1 - x, 4), eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+
+// renkler: tarzın kâğıt/mürekkep zemini + ürünün lacivert/altın kimliği
+const PAPER = '#f6f4ef', INK = '#15130f', MUTED = '#6d685e', GRID = '#dcd7cc', TRACK = '#ebe7de';
+const NAVY = '#1F3A5F', NAVY_L = '#6E8BB5', PALE = '#B9C4D3', GOLD = '#E3A21A', BRAND = '#FDB913', ACC = '#8A5A00';
+const POS = '#1E7A4C', NEG = '#B3261E';
+const SERIF = "'Source Serif 4', Georgia, serif", SANS = "'Libre Franklin', sans-serif";
+function F(size, w, fam, ls = 0) { ctx.font = `${w} ${size}px ${fam}`; ctx.letterSpacing = ls + 'px'; }
+const rgba = (hex, a) => { const n = parseInt(hex.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+// Türkçe sayı biçimi: 1.980.000,00
+const tr = (v, d = 0) => { const s = Math.abs(v).toFixed(d).split('.'); s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.'); return (v < 0 ? '−' : '') + s.join(','); };
+
+// ── zaman çizelgesi ──────────────────────────────────────────────────────────
+const SC = [3.0, 9.4, 15.6, 22.0], SCD = 0.85;          // sahne kaydırmalarının başlangıcı
+const BASE = [0, ...SC.map(s => s + 0.45)];               // her sahnenin yerel t=0 anı
+const FADE = 28.3, LOGO = 28.75;
+const PX0 = 200;
+
+window.SFX = [];
+const sfx = (k, scene, lt, v) => SFX.push({ t: +(BASE[scene] + lt).toFixed(3), k, v });
+
+// ── metin yardımcıları (tarzdan) ─────────────────────────────────────────────
+function riseText(str, x, y, p, lineH) {
+  if (p <= 0) return; const e = eOut4(p);
+  ctx.save(); ctx.beginPath(); ctx.rect(x - 10, y - lineH * 0.95, 1760, lineH * 1.25); ctx.clip();
+  ctx.globalAlpha *= clamp(p * 2); ctx.fillText(str, x, y + (1 - e) * lineH * 0.9); ctx.restore();
+}
+function numText(str, x, y, align = 'left') {
+  const dw = ctx.measureText('0').width; let w = 0; const parts = [...str].map(ch => { const cw = /[0-9]/.test(ch) ? dw : ctx.measureText(ch).width; w += cw; return [ch, cw]; });
+  let cx = align === 'right' ? x - w : align === 'center' ? x - w / 2 : x; const al = ctx.textAlign; ctx.textAlign = 'center';
+  for (const [ch, cw] of parts) { ctx.fillText(ch, cx + cw / 2, y); cx += cw; } ctx.textAlign = al; return w;
+}
+// kicker + başlık (vurgulu sözcük) + alt başlık: her sahnenin editoryal başlığı
+function header(t, kick, pre, key, post, sub) {
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+  F(17, 700, SANS, 2.5); ctx.fillStyle = ACC; riseText(kick, PX0, 150, seg(t, 0, 0.55), 24);
+  F(66, 600, SERIF, -0.8); const hp = seg(t, 0.12, 0.8);
+  ctx.fillStyle = INK; riseText(pre, PX0, 232, hp, 76); const w1 = ctx.measureText(pre).width;
+  ctx.fillStyle = ACC; riseText(key, PX0 + w1, 232, hp, 76); const w2 = ctx.measureText(key).width;
+  ctx.fillStyle = INK; riseText(post, PX0 + w1 + w2, 232, hp, 76);
+  const up = eOut(seg(t, 0.8, 1.25)); if (up > 0) { ctx.fillStyle = BRAND; ctx.fillRect(PX0 + w1 + 4, 246, (w2 - 8) * up, 4); }
+  F(25, 400, SANS, 0); ctx.fillStyle = MUTED; riseText(sub, PX0, 292, seg(t, 0.35, 0.95), 34);
+}
+function source(t, str, at) { const sp = seg(t, at, at + 0.5); if (sp <= 0) return; F(16, 400, SANS, 0.3); ctx.fillStyle = rgba(MUTED, sp * 0.9); ctx.textAlign = 'left'; ctx.fillText(str, PX0, 985); }
+function hRule(x, y, w, p, col = GRID, th = 1) { if (p <= 0) return; ctx.fillStyle = col; ctx.fillRect(x, y - th / 2, w * eOut(p), th); }
+function ring(cx, cy, r, frac, col, p, val, lab) {
+  if (p <= 0) return; const e = eOut(p);
+  ctx.save(); ctx.globalAlpha *= clamp(p * 3); ctx.lineCap = 'butt';
+  ctx.lineWidth = 12; ctx.strokeStyle = TRACK; ctx.beginPath(); ctx.arc(cx, cy, r, 0, 7); ctx.stroke();
+  ctx.strokeStyle = col; ctx.lineCap = 'round'; ctx.beginPath(); ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac * eIO(seg(p, 0.1, 1))); ctx.stroke();
+  const vs = val(e); F(vs.length > 4 ? 29 : 34, 600, SERIF, -0.5); ctx.fillStyle = INK; numText(vs, cx, cy + 11, 'center');
+  F(14, 700, SANS, 1.8); ctx.fillStyle = MUTED; ctx.textAlign = 'center'; ctx.fillText(lab, cx, cy + r + 38); ctx.restore();
+}
+function dot(x, y, r, col, ring = PAPER) { ctx.fillStyle = ring; ctx.beginPath(); ctx.arc(x, y, r + 2.5, 0, 7); ctx.fill(); ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); }
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  GİRİŞ
+// ═════════════════════════════════════════════════════════════════════════════
+const CH = [['01', 'Genel Görünüm', 'Portföy nabzı ve sinyaller'], ['02', 'Müşteri Özeti', 'Künye, hareket, cüzdan payı'],
+            ['03', 'Kârlılık', 'Şelale grafiği ve ürün tablosu'], ['04', 'Taahhüt İzleme', 'Gerçekleşme ve katkı']];
+CH.forEach((c, i) => sfx('tick', 0, 1.55 + i * 0.16));
+function scene0(t) {
+  ctx.textBaseline = 'alphabetic'; ctx.textAlign = 'left';
+  F(18, 700, SANS, 3); ctx.fillStyle = ACC; riseText('DEĞER360 · PORTFÖY ÇALIŞMA EKRANI', PX0, 330, seg(t, 0.1, 0.65), 26);
+  F(132, 600, SERIF, -2.5); ctx.fillStyle = INK; riseText('Verimlilik ve', PX0 - 6, 480, seg(t, 0.22, 1.0), 150);
+  ctx.fillStyle = ACC; riseText('Kârlılık', PX0 - 6, 618, seg(t, 0.34, 1.12), 150);
+  const kw = ctx.measureText('Kârlılık').width, up = eOut(seg(t, 1.0, 1.5)); if (up > 0) { ctx.fillStyle = BRAND; ctx.fillRect(PX0, 640, (kw - 10) * up, 7); }
+  F(27, 400, SANS, 0); ctx.fillStyle = MUTED; riseText('Şube ve portföy yöneticisi için çalışma ekranı: dört ekranda, sayılarla bir tur.', PX0, 706, seg(t, 0.6, 1.2), 36);
+  // içindekiler cetveli
+  const y = 800; hRule(PX0, y, 1520, seg(t, 1.2, 1.9), INK, 2);
+  CH.forEach(([n, a, b], i) => { const x = PX0 + i * 390, p = seg(t, 1.55 + i * 0.16, 2.15 + i * 0.16); if (p <= 0) return;
+    const s = eBack(clamp(p * 1.6)); ctx.fillStyle = i === 0 ? BRAND : INK; ctx.beginPath(); ctx.arc(x + 6, y, 7 * s, 0, 7); ctx.fill();
+    ctx.save(); ctx.globalAlpha *= clamp(p * 2); const dy = (1 - eOut(p)) * 16;
+    F(17, 800, SANS, 1.5); ctx.fillStyle = ACC; ctx.fillText(n, x, y + 48 + dy);
+    F(30, 600, SERIF, -0.3); ctx.fillStyle = INK; ctx.fillText(a, x, y + 88 + dy);
+    F(19, 400, SANS, 0); ctx.fillStyle = MUTED; ctx.fillText(b, x, y + 118 + dy); ctx.restore(); });
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  01 · GENEL GÖRÜNÜM
+// ═════════════════════════════════════════════════════════════════════════════
+const NK = Array.from({ length: 29 }, (_, i) => { const f = i / 28, env = Math.sin(Math.PI * f);
+  return 8.39 + 0.51 * (f * 0.8 + 0.2 * f * f) + env * (0.045 * Math.sin(i * 1.31) + 0.03 * Math.sin(i * 0.47 + 1.2)); });
+const L1 = { x0: 200, x1: 980, y0: 880, y1: 420, lo: 8.2, hi: 9.0 };
+const X1 = i => lerp(L1.x0, L1.x1, i / 28), Y1 = v => lerp(L1.y0, L1.y1, (v - L1.lo) / (L1.hi - L1.lo));
+const SIG = [['Taahhüt riski', 0, 'taahhüt', POS, 'gecikme sinyali yok'], ['Cüzdan payı', 2, 'müşteri', GOLD], ['Vadesiz çıkışı', 1, 'müşteri', NEG],
+             ['Vadesi yaklaşan', 4, 'taahhüt', NAVY], ['Satış fırsatı', 2, 'müşteri', BRAND]];
+const T1 = { grid: 0.6, line0: 1.1, line1: 2.9, note: 3.0, sig: 3.35 };
+for (let i = 0; i < 29; i += 4) sfx('dot', 1, T1.line0 + (T1.line1 - T1.line0) * invIO(i / 28), i / 4);
+sfx('tock', 1, T1.note + 0.1);
+{ let k = 0; SIG.forEach(([, v], r) => { for (let j = 0; j < Math.max(1, v); j++) sfx('pip', 1, T1.sig + r * 0.2 + 0.25 + j * 0.07, k++); }); }
+function invIO(f) { let lo = 0, hi = 1; for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; eIO(m) < f ? lo = m : hi = m; } return lo; }
+
+function scene1(t) {
+  header(t, '01 · GENEL GÖRÜNÜM · SEFAKÖY ŞUBESİ', 'Portföy net kârı 28 günde ', '%6,1', ' arttı', 'Günlük portföy net kârı (mn TL), 31.08 → 28.09.2026 · S002544POB31 portföyü');
+  // ızgara
+  [8.2, 8.4, 8.6, 8.8, 9.0].forEach((v, k) => { const p = seg(t, T1.grid + k * 0.07, T1.grid + 0.55 + k * 0.07); if (p <= 0) return;
+    hRule(L1.x0, Y1(v), L1.x1 - L1.x0 + 30, p, k === 0 ? INK : GRID, k === 0 ? 2 : 1);
+    F(19, 400, SANS, 0); ctx.fillStyle = rgba(MUTED, clamp(p * 1.5)); ctx.textAlign = 'left'; ctx.fillText(k === 4 ? '9,0 mn TL' : tr(v, 1), L1.x0, Y1(v) - 10); });
+  F(19, 400, SANS, 0); ctx.textAlign = 'center';
+  [[0, '31.08'], [7, '07.09'], [14, '14.09'], [21, '21.09'], [28, '28.09']].forEach(([i, s], k) => { const p = seg(t, T1.grid + 0.3 + k * 0.06, T1.grid + 0.7 + k * 0.06); if (p <= 0) return;
+    ctx.fillStyle = rgba(MUTED, p); ctx.fillRect(X1(i) - 0.5, L1.y0, 1, 8 * p); ctx.fillText(s, X1(i), L1.y0 + 36); });
+  // alan + çizgi
+  const lp = eIO(seg(t, T1.line0, T1.line1));
+  if (lp > 0) {
+    const n = lp * 28, full = Math.floor(n), f = n - full;
+    const hx = full < 28 ? lerp(X1(full), X1(full + 1), f) : X1(28), hv = full < 28 ? lerp(NK[full], NK[full + 1], f) : NK[28], hy = Y1(hv);
+    const g = ctx.createLinearGradient(0, L1.y1, 0, L1.y0); g.addColorStop(0, rgba(NAVY, 0.13)); g.addColorStop(1, rgba(NAVY, 0));
+    ctx.beginPath(); ctx.moveTo(X1(0), L1.y0); for (let i = 0; i <= full; i++) ctx.lineTo(X1(i), Y1(NK[i])); ctx.lineTo(hx, hy); ctx.lineTo(hx, L1.y0); ctx.closePath(); ctx.fillStyle = g; ctx.fill();
+    ctx.beginPath(); for (let i = 0; i <= full; i++) i ? ctx.lineTo(X1(i), Y1(NK[i])) : ctx.moveTo(X1(i), Y1(NK[i])); ctx.lineTo(hx, hy);
+    ctx.lineWidth = 5; ctx.strokeStyle = NAVY; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; ctx.stroke();
+    dot(X1(0), Y1(NK[0]), 7, NAVY);
+    if (lp < 1) { ctx.fillStyle = NAVY; ctx.beginPath(); ctx.arc(hx, hy, 9, 0, 7); ctx.fill(); F(30, 700, SANS, 0); ctx.fillStyle = INK; ctx.textAlign = 'left'; numText(tr(hv, 2), hx + 16, hy - 22); }
+    else { dot(X1(28), Y1(NK[28]), 8, NAVY); F(22, 700, SANS, 0); ctx.fillStyle = NAVY; ctx.textAlign = 'center'; ctx.fillText('8,39', X1(0), Y1(NK[0]) + 44); }
+  }
+  // not: parantez + büyük sayı
+  const np = seg(t, T1.note, T1.note + 0.5);
+  if (np > 0) { const x = L1.x1 + 48, y0 = Y1(NK[0]), y1 = Y1(NK[28]), ym = (y0 + y1) / 2, hh = (y0 - y1) / 2 * eOut(np);
+    ctx.fillStyle = INK; ctx.fillRect(x, ym - hh, 2, hh * 2); ctx.fillRect(x - 8, ym - hh, 10, 2); ctx.fillRect(x - 8, ym + hh - 2, 10, 2);
+    const cp = seg(t, T1.note + 0.1, T1.note + 0.8), e = eOut(cp); ctx.save(); ctx.globalAlpha *= clamp(cp * 3); ctx.textAlign = 'left';
+    F(92, 600, SERIF, -2); ctx.fillStyle = NAVY; const w = numText(tr(8.39 + 0.51 * e, 1), x + 26, y1 + 30);
+    F(30, 600, SERIF, 0); ctx.fillText(' mn TL', x + 26 + w, y1 + 30);
+    F(24, 800, SANS, 0); ctx.fillStyle = POS; ctx.fillText('▲ ' + tr(0.51 * e, 2) + ' mn TL', x + 30, y1 + 74);
+    F(20, 400, SANS, 0); ctx.fillStyle = MUTED; ctx.fillText('referans tarihine göre', x + 30, y1 + 104); ctx.restore(); }
+  // sinyaller: birim kareler
+  const sx = 1400, sw = 1720 - sx; const hp = seg(t, T1.sig - 0.2, T1.sig + 0.4);
+  if (hp > 0) { hRule(sx, 404, sw, hp, INK, 2); ctx.textAlign = 'left';
+    F(27, 600, SERIF, -0.3); ctx.fillStyle = INK; riseText('Bugün nereye bakmalıyım?', sx, 450, hp, 36);
+    F(19, 400, SANS, 0); ctx.fillStyle = MUTED; riseText('Portföydeki sinyal sayısı · 2 müşteri', sx, 480, seg(t, T1.sig, T1.sig + 0.5), 26); }
+  SIG.forEach(([lab, v, unit, col, zero], r) => { const y = 548 + r * 80, p = seg(t, T1.sig + r * 0.2, T1.sig + r * 0.2 + 0.5); if (p <= 0) return;
+    ctx.save(); ctx.globalAlpha *= clamp(p * 2); const dx = (1 - eOut(p)) * 12;
+    F(22, 500, SANS, 0); ctx.fillStyle = INK; ctx.textAlign = 'left'; ctx.fillText(lab, sx + dx, y);
+    F(22, 800, SANS, 0); ctx.fillStyle = v ? INK : POS; ctx.textAlign = 'right'; ctx.fillText(v + ' ' + unit, 1720, y); ctx.restore();
+    if (v === 0) { const q = seg(t, T1.sig + r * 0.2 + 0.25, T1.sig + r * 0.2 + 0.6); ctx.strokeStyle = rgba(POS, q); ctx.lineWidth = 2; ctx.strokeRect(sx + 1, y + 15, 26, 26);
+      F(18, 400, SANS, 0); ctx.fillStyle = rgba(POS, q); ctx.textAlign = 'left'; ctx.fillText(zero, sx + 40, y + 35); }
+    for (let j = 0; j < v; j++) { const q = seg(t, T1.sig + r * 0.2 + 0.25 + j * 0.07, T1.sig + r * 0.2 + 0.55 + j * 0.07); if (q <= 0) continue;
+      const s = eBack(q), c = 14; ctx.fillStyle = col; ctx.fillRect(sx + j * 34 + c - c * s, y + 14 + c - c * s, 28 * s, 28 * s); }
+    if (r < 4) { ctx.fillStyle = rgba(GRID, p); ctx.fillRect(sx, y + 58, sw, 1); } });
+  source(t, 'Temsili veri. Günlük referans değerleri örnek senaryodan hesaplanır; gerçek tarihsel kayıt değildir.', 1.0);
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  02 · MÜŞTERİ ÖZETİ
+// ═════════════════════════════════════════════════════════════════════════════
+const DB = [['Toplam net kâr', 2.2, 2.6, 19], ['Toplam varlık', 2.4, 2.8, 16], ['Nakdi kredi', 4.5, 5.2, 16], ['Ödeme ve tahsilat hacmi', 9.6, 11, 19], ['Üye işyeri hacmi', 4.4, 5.2, 19]];
+const D2 = { x0: 660, x1: 1400, max: 12, top: 480, gap: 90 };
+const X2 = v => D2.x0 + (D2.x1 - D2.x0) * v / D2.max;
+const T2 = { axis: 0.6, rows: 1.0, rings: 2.7 };
+DB.forEach((d, i) => sfx('tick', 2, T2.rows + i * 0.22 + 0.75, i));
+sfx('tock', 2, T2.rings + 0.2);
+function scene2(t) {
+  header(t, '02 · MÜŞTERİ ÖZETİ · ÖRNEK METAL SANAYİ A.Ş.', 'Beş ana kalemde ', '%16–19', ' büyüme', 'Müşteri verimlilik föyü, 2024 → 2025 · milyon TL');
+  const bot = D2.top + D2.gap * 4 + 40;
+  for (let k = 0; k <= 12; k += 4) { const x = X2(k), p = seg(t, T2.axis + k * 0.02, T2.axis + 0.45 + k * 0.02); if (p <= 0) continue;
+    ctx.fillStyle = k === 0 ? INK : GRID; ctx.fillRect(x - (k === 0 ? 1 : 0.5), D2.top - 50, k === 0 ? 2 : 1, (bot - D2.top + 50) * eOut(p));
+    F(19, 400, SANS, 0); ctx.fillStyle = rgba(MUTED, p); ctx.textAlign = 'center'; ctx.fillText(k === 12 ? '12 M' : String(k), x, D2.top - 64); }
+  { const p = seg(t, T2.axis + 0.3, T2.axis + 0.8); F(17, 700, SANS, 1.8); ctx.fillStyle = rgba(MUTED, p); ctx.textAlign = 'left'; ctx.fillText('DEĞİŞİM', 1480, D2.top - 64); }
+  DB.forEach(([lab, a, b, pc], i) => { const y = D2.top + i * D2.gap, p = seg(t, T2.rows + i * 0.22, T2.rows + i * 0.22 + 0.9); if (p <= 0) return;
+    ctx.save(); ctx.globalAlpha *= clamp(p * 2.5); F(26, i === 0 ? 700 : 500, SANS, 0); ctx.fillStyle = INK; ctx.textAlign = 'right'; ctx.fillText(lab, D2.x0 - 30, y + 9); ctx.restore();
+    const pa = eBack(clamp(p * 3)), pl = eIO(seg(p, 0.3, 0.85)), xa = X2(a), xb = lerp(xa, X2(b), pl);
+    ctx.fillStyle = PALE; ctx.fillRect(xa, y - 3, xb - xa, 6);
+    dot(xa, y, 11 * pa, PALE); if (pl > 0) dot(xb, y, 13 * eBack(clamp(pl * 1.4)), NAVY);
+    F(19, 400, SANS, 0); ctx.fillStyle = rgba(MUTED, clamp(p * 2)); ctx.textAlign = 'right'; ctx.fillText(tr(a, 1), xa - 20, y + 7);
+    if (pl > 0) { F(24, 800, SANS, 0); ctx.fillStyle = NAVY; ctx.textAlign = 'left'; numText(tr(lerp(a, b, pl), 1), xb + 22, y + 9); }
+    if (i === 3) { const q = seg(p, 0.5, 1); F(15, 700, SANS, 1.5); ctx.textAlign = 'center'; ctx.fillStyle = rgba(MUTED, q); ctx.fillText('2024', xa, y - 26); ctx.fillStyle = rgba(NAVY, q); ctx.fillText('2025', X2(b), y - 26); }
+    const cp = seg(p, 0.7, 1); if (cp > 0) { F(32, 800, SANS, -0.5); ctx.fillStyle = rgba(POS, cp); ctx.textAlign = 'left'; const w = numText('+' + Math.round(pc * eOut(cp)), 1480 + (1 - eOut(cp)) * 10, y + 11); ctx.fillText('%', 1480 + (1 - eOut(cp)) * 10 + w, y + 11); }
+    if (i < 4) { ctx.fillStyle = rgba(GRID, p * 0.6); ctx.fillRect(PX0, y + D2.gap / 2, 1720 - PX0, 1); } });
+  const rp = seg(t, T2.rings, T2.rings + 1.0), rp2 = seg(t, T2.rings + 0.2, T2.rings + 1.2);
+  ring(1490, 200, 64, 0.74, BRAND, rp, e => String(Math.round(74 * e)), 'SAĞLIK SKORU');
+  ring(1650, 200, 64, 0.338, NAVY, rp2, e => '%' + tr(33.8 * e, 1), 'CÜZDAN PAYI');
+  source(t, 'Örnek müşteri verisi · Ticari KOBİ · Metal ürünleri imalatı (NACE 25) · Cüzdan payı: Risk Merkezi, Aralık 2025.', 1.0);
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  03 · KÂRLILIK — şelale
+// ═════════════════════════════════════════════════════════════════════════════
+const WF = [['Net faiz', 'geliri', 2110, 'base', NAVY], ['Net ücret ve', 'komisyon', 720, 'd', NAVY_L], ['Karşılık', 'giderleri', -210, 'd', NEG],
+            ['Diğer faaliyet', 'giderleri', -640, 'd', NEG], ['Gerçekleşen', 'taahhüt katkısı', 113.70205, 'd', POS], ['Genel toplam', '(katkı dahil)', 2093.70205, 'total', GOLD]];
+const G3 = { y0: 870, k: 440 / 3000, x: i => 320 + i * 180, bw: 118 };
+const Y3 = v => G3.y0 - v * G3.k;
+const T3 = { grid: 0.6, bars: 1.1, step: 0.42, eq: 3.85 };
+WF.forEach((b, i) => sfx(i === 5 ? 'tock' : 'tick', 3, T3.bars + i * T3.step + 0.4, i));
+sfx('pip', 3, T3.eq + 0.3, 0); sfx('pip', 3, T3.eq + 0.65, 2); sfx('soft2', 3, T3.eq + 1.0);
+function fmtB(v) { const a = Math.abs(v); return a >= 1000 ? tr(a / 1000, 2) + ' M' : tr(a, 0) + ' B'; }
+function scene3(t) {
+  header(t, '03 · ÜRÜN VE DÖNEM BAZINDA KÂRLILIK', 'Genel toplam ', '2,09 M TL', ' nasıl oluşuyor?', 'Dört kârlılık kalemi + gerçekleşen taahhüt katkısı · TL, B = bin, M = milyon');
+  for (let k = 0; k <= 3; k++) { const y = Y3(k * 1000), p = seg(t, T3.grid + k * 0.08, T3.grid + 0.55 + k * 0.08); if (p <= 0) continue;
+    hRule(PX0, y, 1320 - PX0, p, k === 0 ? INK : GRID, k === 0 ? 2 : 1);
+    if (k) { F(19, 400, SANS, 0); ctx.fillStyle = rgba(MUTED, p); ctx.textAlign = 'left'; ctx.fillText(k + ' M', PX0, y - 10); } }
+  let run = 0;
+  WF.forEach(([l1, l2, v, kind, col], i) => {
+    const from = kind === 'd' ? run : 0, to = kind === 'd' ? run + v : v; run = kind === 'total' ? run : to;
+    const p = seg(t, T3.bars + i * T3.step, T3.bars + i * T3.step + 0.6); const cx = G3.x(i), x = cx - G3.bw / 2;
+    const lp = seg(t, T3.grid + 0.4 + i * 0.05, T3.grid + 0.8 + i * 0.05);
+    if (lp > 0) { F(19, i === 5 ? 700 : 400, SANS, 0); ctx.fillStyle = rgba(i === 5 ? INK : MUTED, lp); ctx.textAlign = 'center'; ctx.fillText(l1, cx, G3.y0 + 34); ctx.fillText(l2, cx, G3.y0 + 58); }
+    if (p <= 0) return; const e = eOut4(p);
+    const cur = lerp(from, to, e), ya = Y3(from), yb = Y3(cur);
+    ctx.fillStyle = col; ctx.fillRect(x, Math.min(ya, yb), G3.bw, Math.max(2, Math.abs(yb - ya)));
+    // bağlayıcı kesik çizgi (bir sonraki çubuğa)
+    if (i < 5) { const q = seg(t, T3.bars + i * T3.step + 0.45, T3.bars + i * T3.step + 0.75); if (q > 0) { ctx.save(); ctx.setLineDash([5, 5]); ctx.strokeStyle = MUTED; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(x + G3.bw, Y3(to)); ctx.lineTo(x + G3.bw + (180 - G3.bw) * eOut(q), Y3(to)); ctx.stroke(); ctx.restore(); } }
+    F(24, 800, SANS, 0); ctx.textAlign = 'center'; ctx.fillStyle = kind === 'd' ? (v < 0 ? NEG : v < 200 ? POS : NAVY) : INK;
+    const top = Math.min(ya, Y3(to)); const lab = (kind === 'd' ? (v < 0 ? '−' : '+') : '') + fmtB(kind === 'd' ? v * e : v * e);
+    ctx.globalAlpha = clamp(p * 2); numText(lab, cx, top - 16, 'center'); ctx.globalAlpha = 1;
+  });
+  // denklem
+  const ex = 1395, ew = 1720 - ex;
+  const rows = [['Dört kârlılık kalemi', 1980000, INK, '', 0], ['Gerçekleşen taahhüt katkısı', 113702.05, POS, '+', 0.35], ['Genel toplam (katkı dahil)', 2093702.05, NAVY, '=', 0.7]];
+  rows.forEach(([lab, v, col, op, d], i) => { const y = 470 + i * 150, p = seg(t, T3.eq + d, T3.eq + d + 0.6); if (p <= 0) return;
+    ctx.save(); ctx.globalAlpha *= clamp(p * 2); const dy = (1 - eOut(p)) * 12; ctx.textAlign = 'left';
+    if (i === 2) { hRule(ex, y - 52, ew, p, INK, 2); }
+    if (op) { F(26, 400, SANS, 0); ctx.fillStyle = MUTED; ctx.fillText(op, ex - 38, y + 56 + dy); }
+    F(20, i === 2 ? 700 : 500, SANS, 0); ctx.fillStyle = i === 2 ? ACC : MUTED; ctx.fillText(lab, ex, y + dy);
+    F(i === 2 ? 42 : 38, 700, SANS, -0.8); ctx.fillStyle = col; const cp = eOut(seg(t, T3.eq + d + 0.1, T3.eq + d + 0.9));
+    const w = numText(tr(v * cp, 2), ex, y + 56 + dy); if (i === 2) { F(22, 600, SANS, 0); ctx.fillText(' TL', ex + w, y + 56 + dy); }
+    ctx.restore(); });
+  source(t, 'Örnek müşteri verisi. Genel toplam = net faiz + net ücret-komisyon + karşılık + diğer faaliyet giderleri + gerçekleşen taahhüt katkısı.', 1.0);
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
+//  04 · TAAHHÜT İZLEME
+// ═════════════════════════════════════════════════════════════════════════════
+const TH = [['Dış ticaret işlemi', 95, 28500], ['Vadesiz mevduat', 62.5, 75452.05], ['DBS kullanım oranı', 61.54, 0], ['Otomatik ödeme talimatı', 60, 300], ['Üye işyeri cirosu', 48.21, 9450]];
+const B4 = { x0: 680, x1: 1340, top: 450, gap: 96, bh: 54 };
+const T4 = { axis: 0.6, bars: 1.0, total: 2.6, ring: 2.3 };
+TH.forEach((b, i) => sfx('tick', 4, T4.bars + i * 0.18 + 0.8, i));
+sfx('tock', 4, T4.total + 0.3); sfx('pip', 4, T4.ring + 0.9, 3);
+function scene4(t) {
+  header(t, '04 · TAAHHÜT İZLEME · AKTİF TAAHHÜTLER', '5 aktif taahhüdün gerçekleşmesi ', '%66', '', 'Taahhüt türüne göre gerçekleşme oranı ve müşteriye getirdiği katkı · hedef %100');
+  const unit = (B4.x1 - B4.x0) / 100, bot = B4.top + B4.gap * 4 + B4.bh + 26;
+  for (let k = 0; k <= 100; k += 50) { const x = B4.x0 + k * unit, p = seg(t, T4.axis + k * 0.002, T4.axis + 0.45 + k * 0.002); if (p <= 0) continue;
+    ctx.save(); if (k === 100) ctx.setLineDash([6, 6]); ctx.strokeStyle = k === 0 ? INK : k === 100 ? INK : GRID; ctx.lineWidth = k === 0 ? 2 : k === 100 ? 1.5 : 1;
+    ctx.beginPath(); ctx.moveTo(x, B4.top - 40); ctx.lineTo(x, B4.top - 40 + (bot - B4.top + 40) * eOut(p)); ctx.stroke(); ctx.restore();
+    F(19, k === 100 ? 700 : 400, SANS, 0); ctx.fillStyle = rgba(k === 100 ? INK : MUTED, p); ctx.textAlign = 'center'; ctx.fillText(k === 100 ? 'Hedef %100' : '%' + k, x, B4.top - 54); }
+  { const p = seg(t, T4.axis + 0.3, T4.axis + 0.8); F(17, 700, SANS, 1.8); ctx.fillStyle = rgba(MUTED, p); ctx.textAlign = 'right'; ctx.fillText('KATKI · TL', 1720, B4.top - 54); }
+  TH.forEach(([lab, v, katki], i) => { const y = B4.top + i * B4.gap, p = seg(t, T4.bars + i * 0.18, T4.bars + i * 0.18 + 0.95); if (p <= 0) return;
+    const e = eOut4(p), col = v >= 100 ? POS : v >= 50 ? GOLD : NEG, ym = y + B4.bh / 2;
+    ctx.save(); ctx.globalAlpha *= clamp(p * 2.5); F(26, i === 0 ? 700 : 500, SANS, 0); ctx.fillStyle = INK; ctx.textAlign = 'right'; ctx.fillText(lab, B4.x0 - 28, ym + 9); ctx.restore();
+    ctx.fillStyle = TRACK; ctx.fillRect(B4.x0, y, (B4.x1 - B4.x0) * eOut(clamp(p * 2)), B4.bh);
+    ctx.fillStyle = col; ctx.fillRect(B4.x0, y, v * unit * e, B4.bh);
+    F(30, 800, SANS, -0.5); ctx.fillStyle = v < 50 ? NEG : v >= 100 ? POS : ACC; ctx.textAlign = 'left';
+    const w = numText('%' + tr(v * e, Math.round(v * 100) % 10 ? 2 : v % 1 ? 1 : 0), B4.x1 + 30, ym + 11);
+    if (v < 50) { const q = seg(p, 0.8, 1); F(15, 700, SANS, 1.5); ctx.fillStyle = rgba(NEG, q); ctx.fillText('RİSKLİ', B4.x1 + 38 + w, ym + 9); }
+    const kp = seg(p, 0.5, 1); F(24, 500, SANS, 0); ctx.fillStyle = rgba(katki ? POS : MUTED, kp); ctx.textAlign = 'right'; numText(tr(katki * eOut(kp), 2), 1720, ym + 9, 'right');
+    if (i < 4) { ctx.fillStyle = rgba(GRID, p * 0.6); ctx.fillRect(PX0, y + B4.bh + (B4.gap - B4.bh) / 2, 1720 - PX0, 1); } });
+  // toplam katkı
+  const tp = seg(t, T4.total, T4.total + 0.6);
+  if (tp > 0) { const y = bot + 12; hRule(1720 - 260, y, 260, tp, INK, 2); ctx.save(); ctx.globalAlpha *= clamp(tp * 2);
+    F(34, 800, SANS, -0.5); ctx.fillStyle = POS; numText(tr(113702.05 * eOut(seg(t, T4.total + 0.05, T4.total + 0.8)), 2), 1720, y + 46, 'right');
+    F(19, 400, SANS, 0); ctx.fillStyle = MUTED; ctx.textAlign = 'right'; ctx.fillText('toplam katkı, TL', 1720, y + 74); ctx.restore(); }
+  ring(1640, 200, 64, 0.66, GOLD, seg(t, T4.ring, T4.ring + 1.0), e => '%' + Math.round(66 * e), 'GENEL GERÇEKLEŞME');
+  source(t, 'Örnek müşteri verisi · Sarı: %50–99 devam ediyor · Kırmızı: %50 altı riskli · Bitiş 30.11.2026, 91 gün kaldı.', 1.0);
+}
+
+// ── kalıcı üst şerit: bölüm göstergesi ───────────────────────────────────────
+function chrome(t, P, a) {
+  if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; ctx.textBaseline = 'alphabetic';
+  F(14, 700, SANS, 2.2); ctx.fillStyle = MUTED; ctx.textAlign = 'left'; ctx.fillText('VERİMLİLİK VE KÂRLILIK', PX0, 72);
+  const act = clamp(P - 1, 0, 3); let x = 1720;
+  for (let i = 3; i >= 0; i--) { const s = CH[i][0] + '  ' + CH[i][1]; F(15, 700, SANS, 0.5); const w = ctx.measureText(s).width; x -= w;
+    const on = clamp(1 - Math.abs(act - i) * 2); ctx.fillStyle = on > 0.5 ? INK : rgba(MUTED, 0.75); ctx.textAlign = 'left'; ctx.fillText(s, x, 72);
+    if (on > 0) { ctx.fillStyle = rgba('#FDB913', on); ctx.fillRect(x, 82, w * on, 3); } x -= 34; }
+  ctx.fillStyle = GRID; ctx.fillRect(PX0, 100, 1720 - PX0, 1); ctx.restore();
+}
+
+// ── kapanış işareti ──────────────────────────────────────────────────────────
+function logo(t) {
+  const p = seg(t, LOGO, LOGO + 0.6); if (p <= 0) return; const e = eOut(p);
+  ctx.save(); ctx.textBaseline = 'alphabetic'; F(58, 600, SERIF, -1); const tw = ctx.measureText('Verimlilik ve Kârlılık').width;
+  const S = 96, gap = 34, x = W / 2 - (S + gap + tw) / 2, y = H / 2 - S / 2 + (1 - e) * 14;
+  ctx.globalAlpha = e; const s = eBack(clamp(p * 1.3));
+  ctx.save(); ctx.translate(x + S / 2, y + S / 2); ctx.scale(s, s); ctx.fillStyle = BRAND; ctx.beginPath(); ctx.roundRect(-S / 2, -S / 2, S, S, 24); ctx.fill(); ctx.restore();
+  [0.38, 0.62, 0.86].forEach((h, i) => { const q = eOut(seg(t, LOGO + 0.3 + i * 0.12, LOGO + 0.75 + i * 0.12)); const bw = 12, bx = x + 26 + i * 18, by = y + S - 22;
+    ctx.fillStyle = '#0E1D33'; ctx.fillRect(bx, by - 54 * h * q, bw, 54 * h * q); });
+  ctx.fillStyle = INK; ctx.textAlign = 'left'; ctx.fillText('Verimlilik ve Kârlılık', x + S + gap, y + 56);
+  F(17, 700, SANS, 3); ctx.fillStyle = ACC; ctx.globalAlpha = clamp(seg(t, LOGO + 0.4, LOGO + 0.9)); ctx.fillText('DEĞER360 · PORTFÖY ÇALIŞMA EKRANI', x + S + gap + 3, y + 92);
+  F(16, 400, SANS, 0.3); ctx.fillStyle = MUTED; ctx.textAlign = 'center'; ctx.globalAlpha = clamp(seg(t, LOGO + 0.8, LOGO + 1.3)) * 0.9;
+  ctx.fillText('Tüm rakamlar örnek veridir; karar ve öneriler örnek müşteri verilerine dayanır.', W / 2, 985);
+  ctx.restore();
+}
+sfx('soft', 0, LOGO + 0.15);
+
+const SCENES = [scene0, scene1, scene2, scene3, scene4];
+function render(t) {
+  ctx.globalAlpha = 1; ctx.drawImage(PAPER_CV, 0, 0);
+  const P = SC.reduce((s, a) => s + eIO(seg(t, a, a + SCD)), 0);
+  const fo = 1 - eIO(seg(t, FADE, FADE + 0.45));
+  ctx.save(); ctx.globalAlpha = fo; ctx.translate(0, -18 * seg(t, FADE, FADE + 0.45));
+  SCENES.forEach((fn, k) => { const d = k - P; if (Math.abs(d) >= 1) return;
+    ctx.save(); ctx.translate(0, d * H); fn(t - BASE[k]); ctx.restore(); });
+  ctx.restore();
+  chrome(t, P, clamp((P - 0.72) * 4) * fo);
+  logo(t);
+  // son 0,4 sn: kâğıda yumuşak sönüş (sert kesim yok)
+  const end = seg(t, DUR - 0.4, DUR); if (end > 0) { ctx.globalAlpha = end * 0.6; ctx.drawImage(PAPER_CV, 0, 0); ctx.globalAlpha = 1; }
+}
+let PAPER_CV;
+function prep() {
+  PAPER_CV = mk(W, H); const g = PAPER_CV.getContext('2d'); g.fillStyle = PAPER; g.fillRect(0, 0, W, H);
+  const im = g.getImageData(0, 0, W, H); let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  for (let i = 0; i < im.data.length; i += 4) { const n = (rnd() - 0.5) * 7; im.data[i] += n; im.data[i + 1] += n; im.data[i + 2] += n; }
+  g.putImageData(im, 0, 0);
+}
+window.DUR = DUR;
+window.draw = function (job) { render(job.t); return cv.toDataURL('image/jpeg', job.q || 0.92).split(',')[1]; };
+window.ready = document.fonts.ready.then(() => Promise.all([
+  ...[400, 600].map(w => document.fonts.load(`${w} 60px 'Source Serif 4'`, 'Verimlilik Kârlılık ĞİŞÇÖÜ ğışçöü')),
+  ...[400, 500, 700, 800].map(w => document.fonts.load(`${w} 20px 'Libre Franklin'`, 'Doğaçlama ığüşöç ĞİŞÇÖÜ 0123−%▲'))])).then(prep);
+
+// tarayıcıda açılınca oynat (render modunda değil). Boşluk: duraklat, ←/→: 1 sn atla.
+if (!/[?&]render/.test(location.search)) {
+  let t0 = null, paused = false, pt = 0;
+  window.ready.then(() => { const loop = now => { if (t0 === null) t0 = now; const t = paused ? pt : ((now - t0) / 1000) % (DUR + 1.5);
+    render(Math.min(t, DUR)); requestAnimationFrame(loop); }; requestAnimationFrame(loop); });
+  addEventListener('keydown', e => { const now = performance.now(), cur = ((now - t0) / 1000) % (DUR + 1.5);
+    if (e.code === 'Space') { if (paused) { t0 = now - pt * 1000; paused = false; } else { pt = cur; paused = true; } e.preventDefault(); }
+    if (e.code === 'ArrowRight' || e.code === 'ArrowLeft') { const d = e.code === 'ArrowRight' ? 1 : -1; if (paused) pt = clamp(pt + d, 0, DUR); else t0 -= d * 1000; } });
+} else document.body.classList.add('render');
+</script></body></html>

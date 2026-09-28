@@ -1,0 +1,1454 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Verimlilik ve Kârlılık</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#E9E5DC;font-family:"IBM Plex Sans",system-ui,sans-serif;color:#0F1A2A;font-variant-numeric:tabular-nums}
+a{color:#1F3A5F}a:hover{color:#0E1D33}
+select,input,button{font-family:inherit}
+.screen{display:flex;justify-content:center;min-width:1440px}
+.screen[hidden]{display:none}
+.screen>div{box-shadow:0 0 0 1px #DDD8CC}
+a[href^="#"]{transition:filter .15s,background-color .15s}
+a[href^="#"]:hover{filter:brightness(1.08)}
+button{transition:background-color .15s,color .15s}
+@media print{body{background:#fff}.screen{display:flex!important;page-break-after:always}.screen>div{box-shadow:none}}
+</style>
+</head>
+<body>
+<section class="screen" id="main" hidden>
+<div style="width: 1440px; min-height: 1640px; box-sizing: border-box; background: #F5F3EE; display: flex; flex-direction: column; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0F1A2A">
+
+<header style="height: 68px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 40px; background: #0E1D33; color: #F5F3EE">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 36px; height: 36px; border-radius: 10px; background: #FDB913; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1D33" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 19V13"></path><path d="M12 19V8"></path><path d="M19 19V4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 19px; font-weight: 600; line-height: 1.1">Verimlilik ve Kârlılık</span>
+<span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B4C6">Değer360 · Portföy çalışma ekranı</span>
+</div>
+</div>
+<nav aria-label="Verimlilik ve kârlılık ekranları" style="display: flex; gap: 4px; margin-left: 36px">
+<a href="#main" aria-current="page" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: rgba(253,185,19,0.16); color: #FDB913; font-size: 14px; font-weight: 600; text-decoration: none">Genel Görünüm</a>
+<a href="#sorgu" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Müşteri Sorgu</a>
+<a href="#ozet" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Müşteri Detayı</a>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #C9D2DF; padding: 6px 12px; border: 1px solid #2A3E5E; border-radius: 999px">28.09.2026</span>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 36px; height: 36px; border-radius: 999px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">AY</span>
+<div style="display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 13px; font-weight: 600">Ardıç Yüzer</span><span style="font-size: 11.5px; color: #A9B4C6">VB33011 · B00527</span></div>
+</div>
+</div>
+</header>
+
+<main style="flex-grow: 1; padding: 36px 40px 48px; display: flex; flex-direction: column; gap: 28px">
+
+<form aria-label="Kapsam seçimi" style="margin: 0; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.95fr) minmax(0, 0.9fr) auto auto; gap: 12px; align-items: end; padding: 22px 24px; background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 18px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Bölge Kodu
+<select style="height: 46px; padding: 0 12px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FBFAF7; font-size: 14px; font-weight: 600; color: #0F1A2A; text-transform: none; letter-spacing: 0"><option>B00427 · Marmara</option><option>B00428 · Ege</option><option>B00429 · İç Anadolu</option></select>
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Şube Kodu
+<select style="height: 46px; padding: 0 12px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FBFAF7; font-size: 14px; font-weight: 600; color: #0F1A2A; text-transform: none; letter-spacing: 0"><option>S00254 · Sefaköy</option><option>S00263 · Trabzon</option><option>S00266 · Nilüfer</option><option>S00268 · Çorlu</option><option>Tüm şubeler</option></select>
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Portföy Kodu
+<select style="height: 46px; padding: 0 12px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FBFAF7; font-size: 14px; font-weight: 600; color: #0F1A2A; font-family: 'IBM Plex Mono', monospace; text-transform: none; letter-spacing: 0"><option>S002544POB31</option><option>Tüm portföyler</option></select>
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Referans Tarihi
+<input type="date" value="2026-08-31" style="height: 46px; box-sizing: border-box; padding: 0 12px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FBFAF7; font-size: 14px; font-weight: 600; color: #0F1A2A">
+</label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Müşteri No
+<input type="text" inputmode="numeric" placeholder="Müşteri no yazın" style="height: 46px; box-sizing: border-box; padding: 0 14px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FBFAF7; font-size: 14px; color: #0F1A2A">
+</label>
+<button type="button" style="height: 46px; padding: 0 24px; border: 0; border-radius: 12px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">Sorgula</button>
+<a href="#sorgu" style="height: 46px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; padding: 0 18px; border: 1px solid #0E1D33; border-radius: 12px; color: #0E1D33; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap">Müşteri Sorgu’ya Geç
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+</form>
+
+<section aria-labelledby="heroT" style="position: relative; overflow: hidden; border-radius: 28px; background: #0E1D33; color: #F5F3EE; padding: 44px 44px 36px; display: flex; flex-direction: column; gap: 36px">
+<svg width="620" height="420" viewBox="0 0 620 420" aria-hidden="true" style="position: absolute; right: -40px; top: -40px; opacity: 0.5">
+<g fill="none" stroke="#1F3A5F" stroke-width="1"><circle cx="420" cy="140" r="90"></circle><circle cx="420" cy="140" r="150"></circle><circle cx="420" cy="140" r="210"></circle><circle cx="420" cy="140" r="270"></circle></g>
+<circle cx="420" cy="140" r="6" fill="#FDB913"></circle>
+</svg>
+<div style="position: relative; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 720px">
+<span style="font-size: 12px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #FDB913">31 Ağustos 2026 Pazartesi · S00254 Sefaköy · S002544POB31</span>
+<h1 id="heroT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 60px; line-height: 1.02; font-weight: 500; letter-spacing: -0.02em">Şube / Portföy<br><span style="font-style: italic; color: #FDB913">Günlük Görünüm</span></h1>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px; text-align: right">
+<span style="font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B4C6">Portföy Net Kârı</span>
+<div style="display: flex; align-items: baseline; gap: 10px"><span style="font-family: Fraunces, Georgia, serif; font-size: 112px; line-height: 0.9; font-weight: 500; letter-spacing: -0.03em; color: #FFFFFF">8,4</span><span style="font-family: Fraunces, Georgia, serif; font-size: 32px; color: #FDB913">mn TL</span></div>
+<span style="font-size: 13px; color: #A9B4C6">Seçili kapsam · temsili</span>
+</div>
+</div>
+
+<div style="position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px">
+<div style="padding: 20px; border-radius: 18px; background: #16294A; border: 1px solid #243A5E; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 13px; font-weight: 600; color: #C9D2DF">Taahhüt Riski</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6FCF97" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg></div>
+<div style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: Fraunces, Georgia, serif; font-size: 44px; line-height: 1; font-weight: 500">0</span><span style="font-size: 15px; color: #C9D2DF">taahhüt</span></div>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #16392A; color: #6FCF97">Gecikme sinyali yok</span>
+</div>
+<div style="padding: 20px; border-radius: 18px; background: #16294A; border: 1px solid #243A5E; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 13px; font-weight: 600; color: #C9D2DF">Cüzdan Payı</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-9-9"></path><path d="M21 12h-9V3a9 9 0 0 1 9 9z"></path></svg></div>
+<div style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: Fraunces, Georgia, serif; font-size: 44px; line-height: 1; font-weight: 500">2</span><span style="font-size: 15px; color: #C9D2DF">müşteri</span></div>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #3A2F10; color: #F5C451">İncelenecek müşteri</span>
+</div>
+<div style="padding: 20px; border-radius: 18px; background: #16294A; border: 1px solid #243A5E; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 13px; font-weight: 600; color: #C9D2DF">Vadesiz Çıkışı</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F28B82" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l6 6 4-4 8 8"></path><path d="M15 17h6v-6"></path></svg></div>
+<div style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: Fraunces, Georgia, serif; font-size: 44px; line-height: 1; font-weight: 500">1</span><span style="font-size: 15px; color: #C9D2DF">müşteri</span></div>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #3A1A18; color: #F28B82">Örnek sinyal</span>
+</div>
+<div style="padding: 20px; border-radius: 18px; background: #16294A; border: 1px solid #243A5E; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 13px; font-weight: 600; color: #C9D2DF">Vadesi Yaklaşan</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8AB8E6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg></div>
+<div style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: Fraunces, Georgia, serif; font-size: 44px; line-height: 1; font-weight: 500">4</span><span style="font-size: 15px; color: #C9D2DF">taahhüt</span></div>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #172838; color: #8AB8E6">Aktif taahhüt</span>
+</div>
+<div style="padding: 20px; border-radius: 18px; background: #FDB913; color: #0E1D33; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; justify-content: space-between"><span style="font-size: 13px; font-weight: 700">Satış Fırsatı</span>
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E1D33" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div>
+<div style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: Fraunces, Georgia, serif; font-size: 44px; line-height: 1; font-weight: 500">2</span><span style="font-size: 15px; font-weight: 500">müşteri</span></div>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: #0E1D33; color: #FDB913">Ürün önerileri</span>
+</div>
+</div>
+<p style="position: relative; margin: 0; font-size: 13px; color: #A9B4C6">2 müşteri · 31.08.2026 → 28.09.2026 · Günlük referans değerleri temsili senaryodan hesaplanır; gerçek tarihsel kayıt değildir.</p>
+</section>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 28px; align-items: start">
+
+<section aria-labelledby="whereT" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="whereT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; letter-spacing: -0.01em">Bugün nereye bakmalıyım?</h2>
+<span style="font-size: 13px; color: #5F6776">Seçili kapsamdaki müşteriler ve kârlılık sinyalleri</span>
+</div>
+
+<article style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; overflow: hidden">
+<div style="padding: 24px 26px 20px; display: flex; align-items: flex-start; gap: 18px">
+<span style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 14px; background: #0E1D33; color: #FDB913; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600">ÖM</span>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; gap: 12px"><h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 25px; font-weight: 600">Örnek Metal Sanayi A.Ş.</h3><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5F6776">VB 40512873</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #EEF2F8; color: #1F3A5F">Ticari KOBİ</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F2F0EA; color: #4A5566">Metal ürünleri imalatı (NACE 25)</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F2F0EA; color: #4A5566; font-family: 'IBM Plex Mono', monospace">S00254 · Sefaköy · S002544POB31</span>
+</div>
+</div>
+<a href="#ozet" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 12px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap">Müşteri Özeti
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid #EFECE5">
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Net İlişki Katkısı</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">2,19<span style="font-size: 14px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif"> mn TL</span></span>
+<span style="font-size: 12.5px; color: #5F6776">1,991 → 2,19</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ 0,199 · %10</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Toplam Komisyon</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">0,73<span style="font-size: 14px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif"> mn TL</span></span>
+<span style="font-size: 12.5px; color: #5F6776">0,766 → 0,73</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #FBE7E5; color: #B3261E">▼ 0,036 · %4,6</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Fon / Vadesiz</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">0,72<span style="font-size: 14px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif"> mn TL</span></span>
+<span style="font-size: 12.5px; color: #5F6776">0,703 → 0,72</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ 0,017 · %2,4</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Ürün</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">6</span>
+<span style="font-size: 12.5px; color: #5F6776">34 → 6</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #FBE7E5; color: #B3261E">▼ 28 · %82,4</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Taahhüt</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">3</span>
+<span style="font-size: 12.5px; color: #5F6776">0 → 3 · Geciken yok</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ 3</span>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #FBF6E6; border-top: 1px solid #F1E6C4">
+<div style="padding: 16px 26px; display: flex; align-items: center; gap: 14px; border-right: 1px solid #F1E6C4">
+<span style="width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-weight: 800">!</span>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A00">Sinyal · Kaynak: Mizan</span><span style="font-size: 14.5px; font-weight: 600">Ciro ve stok artışı</span><span style="font-size: 12.5px; color: #5F6776">Örnek sinyal: 120 → 150 mn TL</span></div>
+</div>
+<div style="padding: 16px 26px; display: flex; align-items: center; gap: 14px">
+<span style="width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; background: #0E1D33; display: flex; align-items: center; justify-content: center">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A00">Önerilen ürün</span><span style="font-size: 14.5px; font-weight: 600">Rotatif / Spot Kredi</span><span style="font-size: 12.5px; color: #5F6776">Uygunluk kontrolü sonrası</span></div>
+</div>
+</div>
+</article>
+
+<article style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; overflow: hidden">
+<div style="padding: 24px 26px 20px; display: flex; align-items: flex-start; gap: 18px">
+<span style="width: 52px; height: 52px; flex-shrink: 0; border-radius: 14px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600">AG</span>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; gap: 12px"><h3 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 25px; font-weight: 600">Anadolu Gıda Dağıtım A.Ş.</h3><span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5F6776">VB 40733019</span></div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: #EEF2F8; color: #1F3A5F">Ticari</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F2F0EA; color: #4A5566">Gıda toptan ticareti (NACE 46)</span>
+<span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F2F0EA; color: #4A5566; font-family: 'IBM Plex Mono', monospace">S00254 · Sefaköy · S002544POB31</span>
+</div>
+</div>
+<a href="#ozet" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 12px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none; white-space: nowrap">Müşteri Özeti
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid #EFECE5">
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Net İlişki Katkısı</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">6,68<span style="font-size: 14px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif"> mn TL</span></span>
+<span style="font-size: 12.5px; color: #5F6776">6,369 → 6,68</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ 0,311 · %4,9</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Toplam Komisyon</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">1,83<span style="font-size: 14px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif"> mn TL</span></span>
+<span style="font-size: 12.5px; color: #5F6776">2,013 → 1,83</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #FBE7E5; color: #B3261E">▼ 0,183 · %9,1</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Fon / Vadesiz</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">2,64<span style="font-size: 14px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif"> mn TL</span></span>
+<span style="font-size: 12.5px; color: #5F6776">2,704 → 2,64</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #FBE7E5; color: #B3261E">▼ 0,064 · %2,4</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px; border-right: 1px solid #EFECE5">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Ürün</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">6</span>
+<span style="font-size: 12.5px; color: #5F6776">0 → 6</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ 6</span>
+</div>
+<div style="padding: 18px 22px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #5F6776">Taahhüt</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500; line-height: 1.05">1</span>
+<span style="font-size: 12.5px; color: #5F6776">29 → 1 · Geciken yok</span>
+<span style="align-self: flex-start; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: #FBE7E5; color: #B3261E">▼ 28 · %96,6</span>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #FBF6E6; border-top: 1px solid #F1E6C4">
+<div style="padding: 16px 26px; display: flex; align-items: center; gap: 14px; border-right: 1px solid #F1E6C4">
+<span style="width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-weight: 800">!</span>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A00">Sinyal · Kaynak: BKM</span><span style="font-size: 14.5px; font-weight: 600">BKM işlem hacmi artışı</span><span style="font-size: 12.5px; color: #5F6776">Örnek sinyal: 18 → 24 mn TL</span></div>
+</div>
+<div style="padding: 16px 26px; display: flex; align-items: center; gap: 14px">
+<span style="width: 34px; height: 34px; flex-shrink: 0; border-radius: 999px; background: #0E1D33; display: flex; align-items: center; justify-content: center">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></span>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8A5A00">Önerilen ürün</span><span style="font-size: 14.5px; font-weight: 600">Fiziksel / Sanal POS</span><span style="font-size: 12.5px; color: #5F6776">Uygunluk kontrolü sonrası</span></div>
+</div>
+</div>
+</article>
+</section>
+
+<aside style="display: flex; flex-direction: column; gap: 20px; padding-top: 58px">
+<section aria-labelledby="bultenT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00">Günlük Bülten</span>
+<h2 id="bultenT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 500">Seçili tarih ve kapsama göre örnek gündem</h2>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #EFECE5">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #8A5A00; padding-top: 2px">01</span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15px; font-weight: 600">Örnek Metal Sanayi A.Ş.</span><span style="font-size: 13px; color: #5F6776">Ciro ve stok artışı · Rotatif / Spot Kredi</span></div>
+</div>
+<div style="display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #EFECE5">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 500; color: #8A5A00; padding-top: 2px">02</span>
+<div style="display: flex; flex-direction: column; gap: 3px"><span style="font-size: 15px; font-weight: 600">Anadolu Gıda Dağıtım A.Ş.</span><span style="font-size: 13px; color: #5F6776">BKM işlem hacmi artışı · Fiziksel / Sanal POS</span></div>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="nabizT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00">Portföy Nabzı</span>
+<h2 id="nabizT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 500">Seçili kapsama ait örnek göstergeler</h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+<div style="position: relative; width: 92px; height: 92px">
+<svg width="92" height="92" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="30" fill="none" stroke="#EFECE5" stroke-width="8"></circle><circle cx="40" cy="40" r="30" fill="none" stroke="#1F3A5F" stroke-width="8" stroke-linecap="round" stroke-dasharray="118.8 188.5" transform="rotate(-90 40 40)"></circle></svg>
+<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 600">%63</span>
+</div>
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Kârlılık</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+<div style="position: relative; width: 92px; height: 92px">
+<svg width="92" height="92" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="30" fill="none" stroke="#EFECE5" stroke-width="8"></circle><circle cx="40" cy="40" r="30" fill="none" stroke="#1E7A4C" stroke-width="8" stroke-linecap="round" stroke-dasharray="188.5 188.5" transform="rotate(-90 40 40)"></circle></svg>
+<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 600">%100</span>
+</div>
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Taahhüt</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px">
+<div style="position: relative; width: 92px; height: 92px">
+<svg width="92" height="92" viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="30" fill="none" stroke="#EFECE5" stroke-width="8"></circle><circle cx="40" cy="40" r="30" fill="none" stroke="#D9950B" stroke-width="8" stroke-linecap="round" stroke-dasharray="56.5 188.5" transform="rotate(-90 40 40)"></circle></svg>
+<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 600">%30</span>
+</div>
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Ürün</span>
+</div>
+</div>
+</section>
+
+<div style="display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-radius: 14px; background: #E9EEF5; color: #1F3A5F; font-size: 13px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>
+<span><b>DGRPUS-01</b> · Ekran açıldı. Arama anahtarını seçip müşteri numarasını giriniz.</span>
+</div>
+</aside>
+</div>
+
+</main>
+</div>
+</section>
+<section class="screen" id="sorgu" hidden>
+<div style="width: 1440px; min-height: 960px; box-sizing: border-box; background: #F5F3EE; display: flex; flex-direction: column; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0F1A2A">
+
+<header style="height: 68px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 40px; background: #0E1D33; color: #F5F3EE">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 36px; height: 36px; border-radius: 10px; background: #FDB913; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1D33" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 19V13"></path><path d="M12 19V8"></path><path d="M19 19V4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 19px; font-weight: 600; line-height: 1.1">Verimlilik ve Kârlılık</span>
+<span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B4C6">Değer360 · Portföy çalışma ekranı</span>
+</div>
+</div>
+<nav aria-label="Verimlilik ve kârlılık ekranları" style="display: flex; gap: 4px; margin-left: 36px">
+<a href="#main" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Genel Görünüm</a>
+<a href="#sorgu" aria-current="page" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: rgba(253,185,19,0.16); color: #FDB913; font-size: 14px; font-weight: 600; text-decoration: none">Müşteri Sorgu</a>
+<a href="#ozet" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Müşteri Detayı</a>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #C9D2DF; padding: 6px 12px; border: 1px solid #2A3E5E; border-radius: 999px">28.09.2026</span>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 36px; height: 36px; border-radius: 999px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">AY</span>
+<div style="display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 13px; font-weight: 600">Ardıç Yüzer</span><span style="font-size: 11.5px; color: #A9B4C6">VB33011 · B00527</span></div>
+</div>
+</div>
+</header>
+
+<main style="flex-grow: 1; display: grid; grid-template-columns: minmax(0, 1fr) 460px; gap: 0">
+
+<section aria-labelledby="qT" style="padding: 72px 64px 48px 80px; display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 16px; max-width: 700px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #8A5A00">Adım 1 · Müşteri seçimi</span>
+<h1 id="qT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 64px; line-height: 1; font-weight: 500; letter-spacing: -0.02em">Müşteri <span style="font-style: italic; color: #1F3A5F">Sorgu</span></h1>
+<p style="margin: 0; font-size: 17px; line-height: 1.55; color: #4A5566">Arama anahtarını seçin (VB No, TCKN, VKN, telefon, kredi hesap no), değeri girin ya da “…” ile listeden seçin, ardından Devam’a basın.</p>
+</div>
+
+<form aria-label="Müşteri arama" style="margin: 0; max-width: 760px; background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 24px; padding: 28px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span id="keyL" style="font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Arama anahtarı</span>
+<div role="group" aria-labelledby="keyL" style="display: flex; gap: 6px; padding: 5px; background: #F2F0EA; border-radius: 14px">
+
+<button type="button" aria-pressed="true" style="flex-grow: 1; min-height: 44px; border: 0; border-radius: 10px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">VB No</button>
+
+<button type="button" aria-pressed="false" style="flex-grow: 1; min-height: 44px; border: 0; border-radius: 10px; background: transparent; color: #4A5566; font-size: 14px; font-weight: 500; cursor: pointer">TCKN</button>
+
+<button type="button" aria-pressed="false" style="flex-grow: 1; min-height: 44px; border: 0; border-radius: 10px; background: transparent; color: #4A5566; font-size: 14px; font-weight: 500; cursor: pointer">VKN</button>
+
+<button type="button" aria-pressed="false" style="flex-grow: 1; min-height: 44px; border: 0; border-radius: 10px; background: transparent; color: #4A5566; font-size: 14px; font-weight: 500; cursor: pointer">Telefon</button>
+
+<button type="button" aria-pressed="false" style="flex-grow: 1; min-height: 44px; border: 0; border-radius: 10px; background: transparent; color: #4A5566; font-size: 14px; font-weight: 500; cursor: pointer">Kredi hesap no</button>
+
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Müşteri · VB No
+<div style="display: flex; gap: 10px; text-transform: none; letter-spacing: 0">
+<div style="flex-grow: 1; display: flex; align-items: center; gap: 12px; height: 60px; box-sizing: border-box; padding: 0 18px; border: 2px solid #0E1D33; border-radius: 14px; background: #FFFFFF">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1F3A5F" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+<input type="text" inputmode="numeric" value="40512873" style="flex-grow: 1; border: 0; outline: none; font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500; color: #0F1A2A; background: transparent">
+</div>
+<button type="button" aria-label="Müşteri listesinden seç" style="width: 60px; height: 60px; border: 1px solid #D9D4C8; border-radius: 14px; background: #FBFAF7; font-size: 22px; font-weight: 700; color: #1F3A5F; cursor: pointer">…</button>
+</div>
+</label>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<div style="padding: 14px 16px; border-radius: 14px; background: #FBFAF7; border: 1px solid #EFECE5; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Unvan</span><span style="font-size: 15px; font-weight: 600">Örnek Metal Sanayi A.Ş.</span></div>
+<div style="padding: 14px 16px; border-radius: 14px; background: #FBFAF7; border: 1px solid #EFECE5; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">VKN / TCKN</span><span style="font-size: 15px; font-weight: 600; font-family: 'IBM Plex Mono', monospace">[VKN]</span></div>
+<div style="padding: 14px 16px; border-radius: 14px; background: #FBFAF7; border: 1px solid #EFECE5; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776">Segment ve şube</span><span style="font-size: 15px; font-weight: 600">Ticari KOBİ · Sefaköy</span></div>
+</div>
+<div style="display: flex; gap: 12px; padding-top: 4px">
+<a href="#ozet" style="display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 28px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; font-size: 15px; font-weight: 600; text-decoration: none">Devam
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+<button type="button" style="min-height: 52px; padding: 0 24px; border: 1px solid #D9D4C8; border-radius: 14px; background: #FFFFFF; font-size: 15px; font-weight: 600; color: #0F1A2A; cursor: pointer">Temizle</button>
+</div>
+</form>
+</section>
+
+<aside aria-labelledby="pT" style="background: #0E1D33; color: #F5F3EE; padding: 72px 40px 48px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #FDB913">Portföyünüzden</span>
+<h2 id="pT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 500">Hızlı erişim</h2>
+<p style="margin: 0; font-size: 14px; color: #A9B4C6">S002544POB31 portföyündeki müşteriler</p>
+</div>
+<a href="#ozet" style="display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 18px; background: #16294A; border: 1px solid #FDB913; color: #F5F3EE; text-decoration: none">
+<div style="display: flex; align-items: center; gap: 14px"><span style="width: 44px; height: 44px; border-radius: 12px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-weight: 700">ÖM</span>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 600">Örnek Metal Sanayi A.Ş.</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #A9B4C6">VB 40512873 · Ticari KOBİ</span></div></div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; color: #C9D2DF"><span>Net ilişki katkısı <b style="color: #FFFFFF">2,19 mn TL</b></span><span style="color: #6FCF97; font-weight: 700">▲ %10</span></div>
+</a>
+<a href="#ozet" style="display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 18px; background: #16294A; border: 1px solid #243A5E; color: #F5F3EE; text-decoration: none">
+<div style="display: flex; align-items: center; gap: 14px"><span style="width: 44px; height: 44px; border-radius: 12px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-weight: 700">AG</span>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 16px; font-weight: 600">Anadolu Gıda Dağıtım A.Ş.</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #A9B4C6">VB 40733019 · Ticari</span></div></div>
+<div style="display: flex; justify-content: space-between; font-size: 13px; color: #C9D2DF"><span>Net ilişki katkısı <b style="color: #FFFFFF">6,68 mn TL</b></span><span style="color: #6FCF97; font-weight: 700">▲ %4,9</span></div>
+</a>
+<div style="margin-top: auto; display: flex; align-items: flex-start; gap: 10px; padding: 16px; border-radius: 14px; border: 1px dashed #2A3E5E; font-size: 13px; color: #A9B4C6; line-height: 1.5">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0; margin-top: 1px"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v5"></path><path d="M12 16.5v.5"></path></svg>
+<span>Tüm rakamlar örnek veridir; karar ve öneriler örnek müşteri verilerine dayanır.</span>
+</div>
+</aside>
+</main>
+</div>
+</section>
+<section class="screen" id="ozet" hidden>
+<div style="width: 1440px; min-height: 2370px; box-sizing: border-box; background: #F5F3EE; display: flex; flex-direction: column; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0F1A2A">
+
+<header style="height: 68px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 40px; background: #0E1D33; color: #F5F3EE; border-bottom: 1px solid #1F3A5F">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 36px; height: 36px; border-radius: 10px; background: #FDB913; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1D33" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 19V13"></path><path d="M12 19V8"></path><path d="M19 19V4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 19px; font-weight: 600; line-height: 1.1">Verimlilik ve Kârlılık</span>
+<span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B4C6">Değer360 · Portföy çalışma ekranı</span>
+</div>
+</div>
+<nav aria-label="Verimlilik ve kârlılık ekranları" style="display: flex; gap: 4px; margin-left: 36px">
+<a href="#main" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Genel Görünüm</a>
+<a href="#sorgu" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Müşteri Sorgu</a>
+<a href="#ozet" aria-current="page" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: rgba(253,185,19,0.16); color: #FDB913; font-size: 14px; font-weight: 600; text-decoration: none">Müşteri Detayı</a>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #C9D2DF; padding: 6px 12px; border: 1px solid #2A3E5E; border-radius: 999px">28.09.2026</span>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 36px; height: 36px; border-radius: 999px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">AY</span>
+<div style="display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 13px; font-weight: 600">Ardıç Yüzer</span><span style="font-size: 11.5px; color: #A9B4C6">VB33011 · B00527</span></div>
+</div>
+</div>
+</header>
+
+<section aria-labelledby="custT" style="position: relative; overflow: hidden; background: #0E1D33; color: #F5F3EE; padding: 44px 40px 40px; display: flex; justify-content: space-between; gap: 48px">
+<svg width="520" height="360" viewBox="0 0 520 360" aria-hidden="true" style="position: absolute; right: 180px; top: -60px; opacity: 0.45"><g fill="none" stroke="#1F3A5F"><circle cx="260" cy="180" r="80"></circle><circle cx="260" cy="180" r="140"></circle><circle cx="260" cy="180" r="200"></circle></g></svg>
+<div style="position: relative; display: flex; flex-direction: column; gap: 16px; max-width: 980px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #FDB913">Müşteri Verimlilik Föyü · 31.08.2026</span>
+<h1 id="custT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 58px; line-height: 1; font-weight: 500; letter-spacing: -0.02em">Örnek Metal Sanayi A.Ş.</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 14px; color: #A9B4C6">
+<span style="font-family: 'IBM Plex Mono', monospace; color: #FFFFFF">40512873</span>
+<span>Ostim Şubesi</span>
+<span>Segment <b style="color: #FFFFFF; font-weight: 600">Ticari KOBİ</b></span>
+<span>Grup <b style="color: #FFFFFF; font-weight: 600">10245</b></span>
+<span>Metal ürünleri imalatı (NACE 25)</span>
+<span><b style="color: #FFFFFF; font-weight: 600">180</b> çalışan</span>
+<span>Ciro <b style="color: #FFFFFF; font-weight: 600">150 M</b></span>
+<span>Aktif <b style="color: #FFFFFF; font-weight: 600">9,2 M</b></span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px">
+<span style="font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #3A1A18; color: #F28B82; border: 1px solid #5A2A26">Ana banka değil</span>
+<span style="font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #16294A; color: #8AB8E6; border: 1px solid #243A5E">SKY KOBİ</span>
+<span style="font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #16294A; color: #FFFFFF; border: 1px solid #243A5E">İstihbarat A2</span>
+<span style="font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #16392A; color: #6FCF97; border: 1px solid #235A40">TOİ Yeşil</span>
+<span style="font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: #3A2F10; color: #F5C451; border: 1px solid #5A4A1A">Çapraz ürün 6 · banka ort. 9,93</span>
+<span style="font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 999px; background: transparent; color: #A9B4C6; border: 1px dashed #2A3E5E">Temsili örnek veri</span>
+</div>
+</div>
+<div style="position: relative; display: flex; gap: 16px; align-items: stretch">
+<div style="width: 180px; padding: 20px; border-radius: 20px; background: #16294A; border: 1px solid #243A5E; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<div style="position: relative; width: 110px; height: 110px">
+<svg width="110" height="110" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="36" fill="none" stroke="#243A5E" stroke-width="8"></circle><circle cx="45" cy="45" r="36" fill="none" stroke="#FDB913" stroke-width="8" stroke-linecap="round" stroke-dasharray="167.4 226.2" transform="rotate(-90 45 45)"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-family: Fraunces, Georgia, serif; font-size: 36px; font-weight: 500; line-height: 1">74</span><span style="font-size: 12px; font-weight: 700; color: #6FCF97">▲ 5</span></div>
+</div>
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #C9D2DF">Sağlık skoru</span>
+</div>
+<div style="width: 180px; padding: 20px; border-radius: 20px; background: #16294A; border: 1px solid #243A5E; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<div style="position: relative; width: 110px; height: 110px">
+<svg width="110" height="110" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="36" fill="none" stroke="#243A5E" stroke-width="8"></circle><circle cx="45" cy="45" r="36" fill="none" stroke="#8AB8E6" stroke-width="8" stroke-linecap="round" stroke-dasharray="149.3 226.2" transform="rotate(-90 45 45)"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center"><span style="font-family: Fraunces, Georgia, serif; font-size: 34px; font-weight: 500">%66</span></div>
+</div>
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #C9D2DF">Taahhüt</span>
+</div>
+</div>
+</section>
+
+<nav aria-label="Müşteri detayı bölümleri" style="flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 14px 40px; background: #FFFFFF; border-bottom: 1px solid #E6E2D9">
+<a href="#ozet" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">1</span>Müşteri Özeti</a>
+<span style="width: 32px; height: 1px; background: #D9D4C8"></span>
+<a href="#urun" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; color: #0F1A2A; font-size: 14px; font-weight: 500; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; border: 1.5px solid #B8B2A5; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; box-sizing: border-box">2</span>Ürün ve Dönem Bazında Kârlılık</a>
+<span style="width: 32px; height: 1px; background: #D9D4C8"></span>
+<a href="#taahhut" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; color: #0F1A2A; font-size: 14px; font-weight: 500; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; border: 1.5px solid #B8B2A5; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; box-sizing: border-box">3</span>Taahhüt İzleme</a>
+<a href="#urun" style="margin-left: auto; display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 18px; border-radius: 12px; border: 1px solid #0E1D33; color: #0E1D33; font-size: 14px; font-weight: 600; text-decoration: none">Ürün ve Dönem Bazında Kârlılık
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+</nav>
+
+<main style="flex-grow: 1; padding: 36px 40px 48px; display: flex; flex-direction: column; gap: 40px">
+
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Toplam net kâr</span>
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 44px; font-weight: 500; line-height: 0.95; color: #1E7A4C">+19%</span>
+<svg width="72" height="44" viewBox="0 0 72 44" aria-hidden="true"><rect x="2" y="15" width="18" height="29" rx="3" fill="#C9D3E1"></rect><rect x="27" y="9" width="18" height="35" rx="3" fill="#1F3A5F"></rect><rect x="52" y="4" width="18" height="40" rx="3" fill="#FDB913"></rect></svg>
+</div>
+<span style="font-size: 13px; color: #4A5566">2,2 M → 2,6 M · 2024→2025</span>
+<span style="padding-top: 10px; border-top: 1px solid #EFECE5; font-size: 12.5px; color: #5F6776">2026: 2,0 M · yıllık ≈ 3,0 M</span>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Toplam varlık</span>
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 44px; font-weight: 500; line-height: 0.95; color: #1E7A4C">+16%</span>
+<svg width="72" height="44" viewBox="0 0 72 44" aria-hidden="true"><rect x="2" y="14" width="18" height="30" rx="3" fill="#C9D3E1"></rect><rect x="27" y="9" width="18" height="35" rx="3" fill="#1F3A5F"></rect><rect x="52" y="4" width="18" height="40" rx="3" fill="#FDB913"></rect></svg>
+</div>
+<span style="font-size: 13px; color: #4A5566">2,4 M → 2,8 M · 2024→2025</span>
+<span style="padding-top: 10px; border-top: 1px solid #EFECE5; font-size: 12.5px; color: #5F6776">2026: 3,2 M (ortalama)</span>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Nakdi kredi</span>
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 44px; font-weight: 500; line-height: 0.95; color: #1E7A4C">+16%</span>
+<svg width="72" height="44" viewBox="0 0 72 44" aria-hidden="true"><rect x="2" y="14" width="18" height="30" rx="3" fill="#C9D3E1"></rect><rect x="27" y="9" width="18" height="35" rx="3" fill="#1F3A5F"></rect><rect x="52" y="4" width="18" height="40" rx="3" fill="#FDB913"></rect></svg>
+</div>
+<span style="font-size: 13px; color: #4A5566">4,5 M → 5,2 M · 2024→2025</span>
+<span style="padding-top: 10px; border-top: 1px solid #EFECE5; font-size: 12.5px; color: #5F6776">2026: 6,0 M (ortalama)</span>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Ödeme ve tahsilat hacmi</span>
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 44px; font-weight: 500; line-height: 0.95; color: #1E7A4C">+19%</span>
+<svg width="72" height="44" viewBox="0 0 72 44" aria-hidden="true"><rect x="2" y="15" width="18" height="29" rx="3" fill="#C9D3E1"></rect><rect x="27" y="11" width="18" height="33" rx="3" fill="#1F3A5F"></rect><rect x="52" y="4" width="18" height="40" rx="3" fill="#FDB913"></rect></svg>
+</div>
+<span style="font-size: 13px; color: #4A5566">9,6 M → 11 M · 2024→2025</span>
+<span style="padding-top: 10px; border-top: 1px solid #EFECE5; font-size: 12.5px; color: #5F6776">2026: 8,8 M · yıllık ≈ 13 M</span>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 12px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Üye işyeri hacmi</span>
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 44px; font-weight: 500; line-height: 0.95; color: #1E7A4C">+19%</span>
+<svg width="72" height="44" viewBox="0 0 72 44" aria-hidden="true"><rect x="2" y="15" width="18" height="29" rx="3" fill="#C9D3E1"></rect><rect x="27" y="9" width="18" height="35" rx="3" fill="#1F3A5F"></rect><rect x="52" y="4" width="18" height="40" rx="3" fill="#FDB913"></rect></svg>
+</div>
+<span style="font-size: 13px; color: #4A5566">4,4 M → 5,2 M · 2024→2025</span>
+<span style="padding-top: 10px; border-top: 1px solid #EFECE5; font-size: 12.5px; color: #5F6776">2026: 4,0 M · yıllık ≈ 6,0 M</span>
+</div>
+
+</div>
+
+<section aria-labelledby="wT" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: baseline; gap: 16px"><h2 id="wT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 34px; font-weight: 500">Cüzdan payı</h2><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8A5A00">Risk Merkezi · Bankamız / Sektör · Aralık 2025 · Örnek</span></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px">
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 24px; display: flex; gap: 24px; align-items: center">
+<div style="position: relative; width: 120px; height: 120px; flex-shrink: 0">
+<svg width="120" height="120" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="34" fill="none" stroke="#E4E9F1" stroke-width="12"></circle><circle cx="45" cy="45" r="34" fill="none" stroke="#1F3A5F" stroke-width="12" stroke-dasharray="72.2 213.6" transform="rotate(-90 45 45)"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-family: Fraunces, Georgia, serif; font-size: 25px; font-weight: 600">%33,8</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0F1A2A">Toplam</span>
+<div style="display: flex; flex-direction: column; gap: 5px; font-size: 13.5px">
+<div style="display: flex; justify-content: space-between"><span style="display: flex; align-items: center; gap: 8px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #1F3A5F"></span>Bankamız</span><b>5,2 M</b></div>
+<div style="display: flex; justify-content: space-between"><span style="display: flex; align-items: center; gap: 8px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #E4E9F1; border: 1px solid #C9D3E1; box-sizing: border-box"></span>Diğer</span><b>10 M</b></div>
+</div>
+<span style="font-size: 12.5px; color: #B3261E; font-weight: 600">Önceki dönem %34 ▼</span>
+<span style="font-size: 12.5px; color: #5F6776">Bankamız limit 7,3 M · diğer banka doluluk %71</span>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 24px; display: flex; gap: 24px; align-items: center">
+<div style="position: relative; width: 120px; height: 120px; flex-shrink: 0">
+<svg width="120" height="120" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="34" fill="none" stroke="#E4E9F1" stroke-width="12"></circle><circle cx="45" cy="45" r="34" fill="none" stroke="#1F3A5F" stroke-width="12" stroke-dasharray="72.2 213.6" transform="rotate(-90 45 45)"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-family: Fraunces, Georgia, serif; font-size: 25px; font-weight: 600">%33,8</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0F1A2A">Nakdi</span>
+<div style="display: flex; flex-direction: column; gap: 5px; font-size: 13.5px">
+<div style="display: flex; justify-content: space-between"><span style="display: flex; align-items: center; gap: 8px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #1F3A5F"></span>Bankamız</span><b>4,3 M</b></div>
+<div style="display: flex; justify-content: space-between"><span style="display: flex; align-items: center; gap: 8px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #E4E9F1; border: 1px solid #C9D3E1; box-sizing: border-box"></span>Diğer</span><b>8,4 M</b></div>
+</div>
+<span style="font-size: 12.5px; color: #B3261E; font-weight: 600">Önceki dönem %34 ▼</span>
+<span style="font-size: 12.5px; color: #5F6776">Bankamız limit 6,0 M · diğer banka doluluk %71</span>
+</div>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 24px; display: flex; gap: 24px; align-items: center">
+<div style="position: relative; width: 120px; height: 120px; flex-shrink: 0">
+<svg width="120" height="120" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="34" fill="none" stroke="#E4E9F1" stroke-width="12"></circle><circle cx="45" cy="45" r="34" fill="none" stroke="#1F3A5F" stroke-width="12" stroke-dasharray="72.2 213.6" transform="rotate(-90 45 45)"></circle></svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center"><span style="font-family: Fraunces, Georgia, serif; font-size: 25px; font-weight: 600">%33,8</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; flex-grow: 1">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0F1A2A">Gayrinakdi</span>
+<div style="display: flex; flex-direction: column; gap: 5px; font-size: 13.5px">
+<div style="display: flex; justify-content: space-between"><span style="display: flex; align-items: center; gap: 8px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #1F3A5F"></span>Bankamız</span><b>940 B</b></div>
+<div style="display: flex; justify-content: space-between"><span style="display: flex; align-items: center; gap: 8px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #E4E9F1; border: 1px solid #C9D3E1; box-sizing: border-box"></span>Diğer</span><b>1,8 M</b></div>
+</div>
+<span style="font-size: 12.5px; color: #B3261E; font-weight: 600">Önceki dönem %34 ▼</span>
+<span style="font-size: 12.5px; color: #5F6776">Bankamız limit 1,3 M · diğer banka doluluk %71</span>
+</div>
+</div>
+
+</div>
+</section>
+
+<section aria-labelledby="hT" style="display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; align-items: baseline; gap: 16px"><h2 id="hT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 34px; font-weight: 500">Hareket</h2><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8A5A00">Değişim 2024→2025 · taralı uzantı yıllık projeksiyon</span>
+<div style="margin-left: auto; display: flex; gap: 18px; font-size: 12.5px; color: #4A5566">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 4px; background: #C9D3E1"></span>2024</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 4px; background: #1F3A5F"></span>2025</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 4px; background: #D9950B"></span>2026 · 243 gün</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 8px; border-radius: 4px; background: repeating-linear-gradient(135deg, #F3D48A 0 3px, #FFF6DD 3px 6px)"></span>Yıllık projeksiyon</span>
+</div>
+</div>
+<div role="table" aria-label="Hareket" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; overflow: hidden">
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; padding: 14px 24px; background: #FBFAF7; border-bottom: 1px solid #EFECE5; font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5F6776">
+<span role="columnheader">Kalem</span><span role="columnheader">2024</span><span role="columnheader">2025</span><span role="columnheader">2026 · kısmi</span><span role="columnheader" style="text-align: right">Değişim</span><span role="columnheader" style="text-align: right">Yön</span>
+</div>
+
+
+<div role="row" style="padding: 12px 24px 6px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00; border-top: 1px solid #EFECE5">Kârlılık</div>
+
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Toplam net kâr</span><span style="font-size: 12.5px; color: #5F6776">dönem hacmi</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 73%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">2,2 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 87%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">2,6 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: repeating-linear-gradient(135deg, #F3D48A 0 3px, #FFF6DD 3px 6px)"><div style="width: 67%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">2,0 M</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+19%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Ürün gelirleri</span><span style="font-size: 12.5px; color: #5F6776">dönem hacmi</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 73%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">2,3 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 86%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">2,7 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: repeating-linear-gradient(135deg, #F3D48A 0 3px, #FFF6DD 3px 6px)"><div style="width: 67%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">2,1 M</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+19%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Komisyon gelirleri</span><span style="font-size: 12.5px; color: #5F6776">dönem hacmi</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 73%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">797 B</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 87%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">949 B</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: repeating-linear-gradient(135deg, #F3D48A 0 3px, #FFF6DD 3px 6px)"><div style="width: 67%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">730 B</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+19%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+
+<div role="row" style="padding: 12px 24px 6px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00; border-top: 1px solid #EFECE5">Mevduat</div>
+
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Toplam varlık</span><span style="font-size: 12.5px; color: #5F6776">ortalama bakiye</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 75%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">2,4 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 88%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">2,8 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: #F2F0EA"><div style="width: 100%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">3,2 M</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+16%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+
+<div role="row" style="padding: 12px 24px 6px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00; border-top: 1px solid #EFECE5">Kredi</div>
+
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Nakdi kredi</span><span style="font-size: 12.5px; color: #5F6776">ortalama bakiye</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 75%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">4,5 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 87%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">5,2 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: #F2F0EA"><div style="width: 100%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">6,0 M</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+16%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+
+<div role="row" style="padding: 12px 24px 6px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00; border-top: 1px solid #EFECE5">Nakit akışı</div>
+
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Ödeme ve tahsilat hacmi</span><span style="font-size: 12.5px; color: #5F6776">dönem hacmi</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 73%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">9,6 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 83%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">11 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: repeating-linear-gradient(135deg, #F3D48A 0 3px, #FFF6DD 3px 6px)"><div style="width: 67%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">8,8 M</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+19%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+
+<div role="row" style="padding: 12px 24px 6px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00; border-top: 1px solid #EFECE5">Üye işyeri</div>
+
+
+
+
+
+<div role="row" style="display: grid; grid-template-columns: 250px repeat(3, minmax(0, 1fr)) 100px 110px; gap: 24px; align-items: center; padding: 12px 24px">
+<div role="cell" style="display: flex; flex-direction: column; gap: 2px"><span style="font-size: 15px; font-weight: 600">Üye işyeri hacmi</span><span style="font-size: 12.5px; color: #5F6776">dönem hacmi</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 73%; height: 100%; border-radius: 6px; background: #C9D3E1"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">4,4 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; background: #F2F0EA; overflow: hidden"><div style="width: 87%; height: 100%; border-radius: 6px; background: #1F3A5F"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 500">5,2 M</span></div>
+<div role="cell" style="display: flex; align-items: center; gap: 10px"><div style="flex-grow: 1; height: 12px; border-radius: 6px; overflow: hidden; background: repeating-linear-gradient(135deg, #F3D48A 0 3px, #FFF6DD 3px 6px)"><div style="width: 67%; height: 100%; border-radius: 6px; background: #D9950B"></div></div><span style="width: 52px; text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 13px">4,0 M</span></div>
+<span role="cell" style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 600; color: #1E7A4C">+19%</span>
+<span role="cell" style="justify-self: end; font-size: 11.5px; font-weight: 700; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 999px; background: #E3F3EA; color: #1E7A4C">▲ ARTIŞ</span>
+</div>
+
+
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 16px">
+<section aria-labelledby="usT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
+<h2 id="usT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 28px; font-weight: 500">Ürün sahipliği</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: Fraunces, Georgia, serif; font-size: 40px; font-weight: 500; line-height: 1; color: #1F3A5F">6</span><span style="font-size: 13px; color: #4A5566">kullanımda</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: Fraunces, Georgia, serif; font-size: 40px; font-weight: 500; line-height: 1; color: #8A5A00">0</span><span style="font-size: 13px; color: #4A5566">geriliyor</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: Fraunces, Georgia, serif; font-size: 40px; font-weight: 500; line-height: 1; color: #B3261E">0</span><span style="font-size: 13px; color: #4A5566">hiç yok</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px"><span style="font-family: Fraunces, Georgia, serif; font-size: 40px; font-weight: 500; line-height: 1; color: #1E7A4C">%100</span><span style="font-size: 13px; color: #4A5566">sahiplik</span></div>
+</div>
+<span style="font-size: 11.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #8A5A00">Ürün aileleri · 6/6</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+
+<div style="min-height: 76px; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FDB913"><span style="width: 7px; height: 7px; border-radius: 999px; background: #FDB913"></span>Kullanımda</span>
+<span style="font-size: 14px; font-weight: 600; line-height: 1.3">Nakdi krediler</span>
+</div>
+
+<div style="min-height: 76px; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FDB913"><span style="width: 7px; height: 7px; border-radius: 999px; background: #FDB913"></span>Kullanımda</span>
+<span style="font-size: 14px; font-weight: 600; line-height: 1.3">Mevduat ve likidite</span>
+</div>
+
+<div style="min-height: 76px; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FDB913"><span style="width: 7px; height: 7px; border-radius: 999px; background: #FDB913"></span>Kullanımda</span>
+<span style="font-size: 14px; font-weight: 600; line-height: 1.3">Nakit yönetimi (DBS, Vinov, toplu ödeme)</span>
+</div>
+
+<div style="min-height: 76px; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FDB913"><span style="width: 7px; height: 7px; border-radius: 999px; background: #FDB913"></span>Kullanımda</span>
+<span style="font-size: 14px; font-weight: 600; line-height: 1.3">Gayrinakdi krediler (TM, akreditif, garanti)</span>
+</div>
+
+<div style="min-height: 76px; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FDB913"><span style="width: 7px; height: 7px; border-radius: 999px; background: #FDB913"></span>Kullanımda</span>
+<span style="font-size: 14px; font-weight: 600; line-height: 1.3">Hazine ve türev</span>
+</div>
+
+<div style="min-height: 76px; box-sizing: border-box; padding: 14px 16px; border-radius: 14px; background: #0E1D33; color: #FFFFFF; display: flex; flex-direction: column; gap: 6px">
+<span style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #FDB913"><span style="width: 7px; height: 7px; border-radius: 999px; background: #FDB913"></span>Kullanımda</span>
+<span style="font-size: 14px; font-weight: 600; line-height: 1.3">Kart ve üye işyeri (POS)</span>
+</div>
+
+</div>
+<div style="display: flex; gap: 18px; font-size: 12.5px; color: #4A5566">
+<span>● Kullanımda</span><span>◐ Geriliyor</span><span>◍ Limit var, kullanım yok</span><span>○ Hiç yok</span>
+</div>
+</section>
+
+<section aria-labelledby="cuT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 4px"><h2 id="cuT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 28px; font-weight: 500">Çapraz ürün</h2><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8A5A00">Müşteri ürün adedi · çizgi banka ortalaması</span></div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 18px; padding: 8px 0 4px">
+<div style="position: absolute; left: calc(52px + (100% - 52px) * 0.8275); top: -6px; bottom: -6px; width: 2px; background: #B3261E"></div>
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5F6776">2024</span><div style="flex-grow: 1; height: 30px; border-radius: 8px; background: #F2F0EA"><div style="width: 41.7%; height: 100%; border-radius: 8px; background: #C9D3E1; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; box-sizing: border-box; font-weight: 700; font-size: 14px">5</div></div></div>
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5F6776">2025</span><div style="flex-grow: 1; height: 30px; border-radius: 8px; background: #F2F0EA"><div style="width: 50%; height: 100%; border-radius: 8px; background: #1F3A5F; color: #FFFFFF; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; box-sizing: border-box; font-weight: 700; font-size: 14px">6</div></div></div>
+<div style="display: flex; align-items: center; gap: 12px"><span style="width: 40px; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #5F6776">2026</span><div style="flex-grow: 1; height: 30px; border-radius: 8px; background: #F2F0EA"><div style="width: 50%; height: 100%; border-radius: 8px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; box-sizing: border-box; font-weight: 700; font-size: 14px">6</div></div></div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px; border-radius: 14px; background: #FBE7E5; font-size: 13.5px; color: #7A1C16"><span style="width: 14px; height: 2px; background: #B3261E"></span>Banka ortalaması 9,93 ürün · müşteri 3,93 ürün geride</div>
+</section>
+</div>
+
+<aside aria-label="Veri notu" style="display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 24px; padding: 24px 28px; border-radius: 20px; border: 1px dashed #CFC8B8; background: #FBFAF7">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 22px; font-weight: 500; font-style: italic">Veri notu</span>
+<ul style="margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; line-height: 1.5; color: #4A5566">
+<li>2026 kolonu 31.08.2026 itibarıyla 243 günlük kısmi dönemdir. Trend rozetleri yalnızca 2024→2025 tamamlanmış dönemlerinden hesaplanır.</li>
+<li>Akım kalemleri (kârlılık, ödeme hacmi) yıllıklandırılır; stok kalemleri (mevduat ortalaması, kredi bakiyesi) yıllıklandırılmaz.</li>
+<li>Üye işyeri: firmanın son 12 ay toplam POS cirosu 4.000.000 TL. Bankamız payı ayrıca hesaplanmalı.</li>
+<li>Bu müşterinin föyü temsili rakamlarla gösterilmektedir.</li>
+</ul>
+</aside>
+</main>
+</div>
+</section>
+<section class="screen" id="urun" hidden>
+<div style="width: 1440px; min-height: 2320px; box-sizing: border-box; background: #F5F3EE; display: flex; flex-direction: column; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0F1A2A">
+
+<header style="height: 68px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 40px; background: #0E1D33; color: #F5F3EE; border-bottom: 1px solid #1F3A5F">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 36px; height: 36px; border-radius: 10px; background: #FDB913; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1D33" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 19V13"></path><path d="M12 19V8"></path><path d="M19 19V4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 19px; font-weight: 600; line-height: 1.1">Verimlilik ve Kârlılık</span>
+<span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B4C6">Değer360 · Portföy çalışma ekranı</span>
+</div>
+</div>
+<nav aria-label="Verimlilik ve kârlılık ekranları" style="display: flex; gap: 4px; margin-left: 36px">
+<a href="#main" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Genel Görünüm</a>
+<a href="#sorgu" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Müşteri Sorgu</a>
+<a href="#ozet" aria-current="page" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: rgba(253,185,19,0.16); color: #FDB913; font-size: 14px; font-weight: 600; text-decoration: none">Müşteri Detayı</a>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #C9D2DF; padding: 6px 12px; border: 1px solid #2A3E5E; border-radius: 999px">28.09.2026</span>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 36px; height: 36px; border-radius: 999px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">AY</span>
+<div style="display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 13px; font-weight: 600">Ardıç Yüzer</span><span style="font-size: 11.5px; color: #A9B4C6">VB33011 · B00527</span></div>
+</div>
+</div>
+</header>
+
+<section aria-label="Seçili müşteri" style="flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 22px 40px; background: #0E1D33; color: #F5F3EE">
+<span style="width: 52px; height: 52px; border-radius: 14px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 700">ÖM</span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.1">Örnek Metal Sanayi A.Ş.</span>
+<span style="font-size: 13px; color: #A9B4C6"><span style="font-family: 'IBM Plex Mono', monospace">VB No 40512873</span> · Ticari KOBİ · Metal ürünleri imalatı (NACE 25)</span>
+</div>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 10px">
+<span style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #16294A; border: 1px solid #243A5E; font-size: 13px; color: #C9D2DF">Sağlık <b style="font-family: Fraunces, Georgia, serif; font-size: 18px; color: #FFFFFF">74</b><span style="color: #6FCF97; font-weight: 700">▲ 5</span></span>
+<span style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #16294A; border: 1px solid #243A5E; font-size: 13px; color: #C9D2DF">Taahhüt <b style="font-family: Fraunces, Georgia, serif; font-size: 18px; color: #FDB913">%66</b></span>
+<a href="#sorgu" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #2A3E5E; color: #F5F3EE; font-size: 14px; font-weight: 500; text-decoration: none">Temizle</a>
+</div>
+</section>
+
+<nav aria-label="Müşteri detayı bölümleri" style="flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 14px 40px; background: #FFFFFF; border-bottom: 1px solid #E6E2D9">
+<a href="#ozet" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; color: #0F1A2A; font-size: 14px; font-weight: 500; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; background: #1E7A4C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">✓</span>Müşteri Özeti</a>
+<span style="width: 32px; height: 1px; background: #D9D4C8"></span>
+<a href="#urun" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">2</span>Ürün ve Dönem Bazında Kârlılık</a>
+<span style="width: 32px; height: 1px; background: #D9D4C8"></span>
+<a href="#taahhut" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; color: #0F1A2A; font-size: 14px; font-weight: 500; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; border: 1.5px solid #B8B2A5; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; box-sizing: border-box">3</span>Taahhüt İzleme</a>
+</nav>
+
+<main style="flex-grow: 1; padding: 36px 40px 48px; display: flex; flex-direction: column; gap: 28px">
+
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #8A5A00">Ürün bazında kârlılık · seçili müşteri · örnek veri</span>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 50px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; white-space: nowrap">Ürün ve Dönem <span style="font-style: italic; color: #1F3A5F">Bazında Kârlılık</span></h1>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<div role="group" aria-label="Görünüm" style="display: flex; gap: 4px; padding: 4px; border-radius: 14px; background: #E9E5DC">
+<button type="button" aria-pressed="true" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 10px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer">Ürün Bazında</button>
+<button type="button" aria-pressed="false" style="min-height: 44px; padding: 0 18px; border: 0; border-radius: 10px; background: transparent; color: #4A5566; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer">Dönem Bazında</button>
+</div>
+
+</div>
+</div>
+
+<div data-if="isPeriod" hidden="">
+<div style="padding: 48px; border-radius: 22px; border: 1px dashed #CFC8B8; background: #FBFAF7; display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 26px; font-weight: 500">Dönem Bazında Kârlılık</span>
+<span style="font-size: 14px; color: #4A5566">Aylık / çeyreklik kırılım bu görünümde yer alır: [DÖNEM KIRILIMI VERİSİ]</span>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 20px">
+<section aria-labelledby="wfT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; padding: 26px 26px 18px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 id="wfT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 26px; font-weight: 500">Genel toplam nasıl oluşuyor?</h2><span style="font-size: 12.5px; color: #5F6776">TL · milyon</span></div>
+<svg width="100%" height="330" viewBox="0 0 640 330" role="img" aria-label="Net faiz geliri 2,11 M, ücret ve komisyon +0,72 M, karşılık giderleri −0,21 M, diğer faaliyet giderleri −0,64 M, genel toplam 1,98 M" style="font-family: 'IBM Plex Sans', sans-serif">
+<g stroke="#EFECE5" stroke-width="1"><line x1="40" y1="280" x2="620" y2="280"></line><line x1="40" y1="200" x2="620" y2="200"></line><line x1="40" y1="120" x2="620" y2="120"></line><line x1="40" y1="40" x2="620" y2="40"></line></g>
+<g fill="#8C877F" font-size="11" font-family="IBM Plex Mono, monospace" text-anchor="end"><text x="32" y="284">0</text><text x="32" y="204">1</text><text x="32" y="124">2</text><text x="32" y="44">3</text></g>
+<g stroke="#B8B2A5" stroke-dasharray="3 3"><line x1="140" y1="111.2" x2="175" y2="111.2"></line><line x1="255" y1="53.6" x2="290" y2="53.6"></line><line x1="370" y1="70.4" x2="405" y2="70.4"></line><line x1="485" y1="121.6" x2="520" y2="121.6"></line></g>
+<rect x="60" y="111.2" width="80" height="168.8" rx="6" fill="#1F3A5F"></rect>
+<rect x="175" y="53.6" width="80" height="57.6" rx="6" fill="#5B7BA6"></rect>
+<rect x="290" y="53.6" width="80" height="16.8" rx="4" fill="#B3261E"></rect>
+<rect x="405" y="70.4" width="80" height="51.2" rx="6" fill="#D46A5F"></rect>
+<rect x="520" y="121.6" width="80" height="158.4" rx="6" fill="#FDB913"></rect>
+<g font-size="15" font-weight="700" fill="#0F1A2A" text-anchor="middle"><text x="100" y="101">2,11</text><text x="215" y="44">+0,72</text><text x="330" y="44" fill="#B3261E">−0,21</text><text x="445" y="140" fill="#B3261E">−0,64</text><text x="560" y="112">1,98</text></g>
+<g font-size="12" fill="#4A5566" text-anchor="middle"><text x="100" y="302">Net Faiz</text><text x="100" y="317">Geliri</text><text x="215" y="302">Ücret ve</text><text x="215" y="317">Komisyon</text><text x="330" y="302">Karşılık</text><text x="330" y="317">Giderleri</text><text x="445" y="302">Diğer Faaliyet</text><text x="445" y="317">Giderleri</text><text x="560" y="302" font-weight="700" fill="#0F1A2A">Genel</text><text x="560" y="317" font-weight="700" fill="#0F1A2A">Toplam</text></g>
+</svg>
+<div style="margin-top: auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border-top: 1px solid #EFECE5; padding-top: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px; padding-right: 12px"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #1F3A5F"></span>Net Faiz Geliri</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500">2.110.000</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px; border-left: 1px solid #EFECE5"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #5B7BA6"></span>Ücret ve Komisyon</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500">+720.000</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding: 0 12px; border-left: 1px solid #EFECE5"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #B3261E"></span>Karşılık Giderleri</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: #B3261E">−210.000</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px; padding-left: 12px; border-left: 1px solid #EFECE5"><span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #4A5566"><span style="width: 10px; height: 10px; border-radius: 3px; background: #D46A5F"></span>Diğer Faaliyet Gid.</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 500; color: #B3261E">−640.000</span></div>
+</div>
+</section>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="background: #0E1D33; color: #F5F3EE; border-radius: 22px; padding: 26px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #FDB913">Genel Toplam</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 56px; font-weight: 500; line-height: 1">1.980.000<span style="font-size: 22px; color: #A9B4C6"> TL</span></span>
+<span style="font-size: 13px; color: #A9B4C6">Taahhütlü karar kârı 1.980.000 TL · taahhüt etkisi 0,00 TL</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12.5px; font-weight: 600; color: #4A5566">Gerçekleşen Taahhüt Katkısı</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 500; color: #1E7A4C">113.702,05</span>
+<span style="font-size: 12px; color: #5F6776">TL · Nakdi krediler</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12.5px; font-weight: 600; color: #4A5566">Kapsam</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 500">4 ürün</span>
+<span style="font-size: 12px; color: #5F6776">3 eşleşen · 5 taahhüt · 1 eşleşmeyen</span>
+</div>
+</div>
+<section aria-labelledby="pcT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 20px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
+<h2 id="pcT" style="margin: 0; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #5F6776">Ürün grubu katkısı · genel toplam</h2>
+
+<div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 84px; gap: 12px; align-items: center">
+<span style="font-size: 13.5px; font-weight: 500">Kredi</span>
+<div style="height: 14px; border-radius: 7px; background: #F2F0EA; overflow: hidden"><div style="width: 100%; height: 100%; border-radius: 7px; background: #1F3A5F"></div></div>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #0F1A2A">770.000</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 84px; gap: 12px; align-items: center">
+<span style="font-size: 13.5px; font-weight: 500">Nakit Yönetimi</span>
+<div style="height: 14px; border-radius: 7px; background: #F2F0EA; overflow: hidden"><div style="width: 76.6%; height: 100%; border-radius: 7px; background: #1F3A5F"></div></div>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #0F1A2A">590.000</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 84px; gap: 12px; align-items: center">
+<span style="font-size: 13.5px; font-weight: 500">Mevduat</span>
+<div style="height: 14px; border-radius: 7px; background: #F2F0EA; overflow: hidden"><div style="width: 62.3%; height: 100%; border-radius: 7px; background: #1F3A5F"></div></div>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #0F1A2A">480.000</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 84px; gap: 12px; align-items: center">
+<span style="font-size: 13.5px; font-weight: 500">Ürün dışı</span>
+<div style="height: 14px; border-radius: 7px; background: #F2F0EA; overflow: hidden"><div style="width: 20.8%; height: 100%; border-radius: 7px; background: #8FA5C4"></div></div>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #0F1A2A">160.000</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 150px minmax(0, 1fr) 84px; gap: 12px; align-items: center">
+<span style="font-size: 13.5px; font-weight: 500">Kartlar ve Üye İşyeri</span>
+<div style="height: 14px; border-radius: 7px; background: #F2F0EA; overflow: hidden"><div style="width: 2.6%; height: 100%; border-radius: 7px; background: #B3261E"></div></div>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #B3261E">−20.000</span>
+</div>
+
+</section>
+</div>
+</div>
+
+<section aria-labelledby="tT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; overflow: hidden">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 26px; border-bottom: 1px solid #EFECE5">
+<div style="display: flex; flex-direction: column; gap: 4px"><h2 id="tT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 500">Ürün Bazında Kârlılık ve Taahhüt Etkisi</h2><span style="font-size: 12.5px; color: #5F6776">TL · örnek kurlar USD 35,00 · EUR 38,00</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><button type="button" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FFFFFF; color: #1E7A4C; font-size: 13.5px; font-weight: 600; cursor: pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>Görünümü Excel’e Aktar</button>
+<button type="button" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FFFFFF; color: #1E7A4C; font-size: 13.5px; font-weight: 600; cursor: pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>Plasman Tutarlarını Excel’e Aktar</button></div>
+</div>
+<div role="table" aria-label="Ürün bazında kârlılık">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; padding: 12px 26px; background: #FBFAF7; border-bottom: 1px solid #EFECE5; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5F6776; line-height: 1.3">
+<span role="columnheader">Ürün / Kredi</span><span role="columnheader" style="text-align: right">Net Faiz Geliri</span><span role="columnheader" style="text-align: right">Ücret ve Komisyon</span><span role="columnheader" style="text-align: right">Karşılık Giderleri</span><span role="columnheader" style="text-align: right">Diğer Faaliyet Gid.</span><span role="columnheader" style="text-align: right">Genel Toplam</span><span role="columnheader" style="text-align: right">Taahhüt Katkısı</span><span role="columnheader" style="text-align: right">Tutar / Limit</span><span role="columnheader" style="text-align: right">Kullandırım</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Çek-Senet Toplam</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 22px; display: flex; align-items: center; gap: 8px; font-weight: 400; color: #1F5F99"><span style="color: #B8B2A5; font-size: 10px"></span>Hesap No: 940512873000001</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Kartlar ve Üye İşyeri Toplam</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">40.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">20.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−80.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #B3261E">−20.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 22px; display: flex; align-items: center; gap: 8px; font-weight: 400; color: #1F5F99"><span style="color: #B8B2A5; font-size: 10px"></span>Hesap No: 940512873000002</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">40.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">20.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−80.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #B3261E">−20.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Kredi Toplam</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">1.200.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">60.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−210.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−280.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">770.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">113.702,05</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 22px; display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Nakdi Krediler Toplam</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">560.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−210.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−160.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">190.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">113.702,05</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 44px; display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>KGF destekli işletme kredisi</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">196.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−73.500,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−56.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">66.500,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">103.952,05</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 66px; display: flex; align-items: center; gap: 8px; font-weight: 400; color: #1F5F99"><span style="color: #B8B2A5; font-size: 10px"></span>Kredi Risk No: 1540512873000001</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">196.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−73.500,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−56.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">66.500,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">103.952,05</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">2.100.000 TL</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">07.02.2026</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 44px; display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Yeşil yatırım kredisi</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">149.333,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−56.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−42.667,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">50.666,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">9.450,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 66px; display: flex; align-items: center; gap: 8px; font-weight: 400; color: #1F5F99"><span style="color: #B8B2A5; font-size: 10px"></span>Kredi Risk No: 1540512873000002</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">149.333,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−56.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−42.667,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">50.666,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">9.450,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">1.600.000 TL</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">07.02.2026</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 44px; display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Rotatif kredi</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">214.667,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−80.500,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−61.333,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">72.834,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">300,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 66px; display: flex; align-items: center; gap: 8px; font-weight: 400; color: #1F5F99"><span style="color: #B8B2A5; font-size: 10px"></span>Kredi Risk No: 1540512873000003</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">214.667,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−80.500,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−61.333,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">72.834,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">300,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">2.300.000 TL</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">22.07.2026</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 22px; display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Gayrinakdi Krediler Toplam</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">640.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">60.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−120.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">580.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 44px; display: flex; align-items: center; gap: 8px; font-weight: 600; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▼</span>Teminat Mektubu</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">640.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">60.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−120.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">580.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FFFFFF; font-size: 13px">
+<span role="cell" style="padding-left: 66px; display: flex; align-items: center; gap: 8px; font-weight: 400; color: #1F5F99"><span style="color: #B8B2A5; font-size: 10px"></span>Kredi Risk No: 1540512873000092</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">640.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">60.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−120.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">580.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">1.200.000 TL</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">11.04.2026</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▶</span>Mevduat</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">190.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">330.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−40.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">480.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▶</span>Nakit Yönetimi</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">500.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">310.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−220.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">590.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▶</span>Ürün dışı</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">180.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E">−20.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">160.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 40px; padding: 6px 26px; border-bottom: 1px solid #F2F0EA; background: #FBFAF7; font-size: 13px">
+<span role="cell" style="padding-left: 0px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #0F1A2A"><span style="color: #B8B2A5; font-size: 10px">▶</span>Yatırım</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #B3261E"></span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: #0F1A2A">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #1E7A4C">0,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #4A5566">—</span>
+</div>
+
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.4fr) repeat(6, minmax(0, 1fr)) 130px 104px; gap: 12px; align-items: center; min-height: 52px; padding: 6px 26px; background: #0E1D33; color: #FFFFFF; font-size: 13.5px">
+<span role="cell" style="font-family: Fraunces, Georgia, serif; font-size: 17px; font-weight: 600; color: #FDB913">Genel Toplam</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">2.110.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace">720.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #F28B82">−210.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #F28B82">−640.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-weight: 700; color: #FDB913">1.980.000,00</span>
+<span role="cell" style="text-align: right; font-family: 'IBM Plex Mono', monospace; color: #6FCF97">113.702,05</span>
+<span role="cell" style="text-align: right">—</span>
+<span role="cell" style="text-align: right">—</span>
+</div>
+</div>
+<div style="padding: 16px 26px; font-size: 13px; line-height: 1.6; color: #4A5566; background: #FBFAF7">40512873 · Örnek Metal Sanayi A.Ş. · 4 ürün · 3 taahhüt eşleşen ürün · 5 taahhüt · 1 eşleşmeyen ürün. Detaylar satır başlıklarındaki üçgenlerden açılır. TL karşılıklarında örnek kurlar kullanılmıştır; adet / kişi bazlı taahhütlerde TL karşılığı gösterilmez.</div>
+</section>
+
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="#ozet" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1px solid #D9D4C8; background: #FFFFFF; color: #0F1A2A; font-size: 14px; font-weight: 600; text-decoration: none">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6 6 6"></path></svg>1 · Müşteri Özeti</a>
+<span style="font-size: 12.5px; color: #5F6776">Tüm rakamlar örnek veridir; karar ve öneriler örnek müşteri verilerine dayanır.</span>
+<a href="#taahhut" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 12px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none">3 · Taahhüt İzleme
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FDB913" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></a>
+</div>
+</main>
+</div>
+</section>
+<section class="screen" id="taahhut" hidden>
+<div style="width: 1440px; min-height: 1500px; box-sizing: border-box; background: #F5F3EE; display: flex; flex-direction: column; font-family: 'IBM Plex Sans', system-ui, sans-serif; color: #0F1A2A">
+
+<header style="height: 68px; flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 0 40px; background: #0E1D33; color: #F5F3EE; border-bottom: 1px solid #1F3A5F">
+<div style="display: flex; align-items: center; gap: 12px">
+<div style="width: 36px; height: 36px; border-radius: 10px; background: #FDB913; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0E1D33" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M5 19V13"></path><path d="M12 19V8"></path><path d="M19 19V4"></path></svg>
+</div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 19px; font-weight: 600; line-height: 1.1">Verimlilik ve Kârlılık</span>
+<span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #A9B4C6">Değer360 · Portföy çalışma ekranı</span>
+</div>
+</div>
+<nav aria-label="Verimlilik ve kârlılık ekranları" style="display: flex; gap: 4px; margin-left: 36px">
+<a href="#main" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Genel Görünüm</a>
+<a href="#sorgu" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; color: #C9D2DF; font-size: 14px; font-weight: 500; text-decoration: none">Müşteri Sorgu</a>
+<a href="#ozet" aria-current="page" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px; background: rgba(253,185,19,0.16); color: #FDB913; font-size: 14px; font-weight: 600; text-decoration: none">Müşteri Detayı</a>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 14px">
+<span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #C9D2DF; padding: 6px 12px; border: 1px solid #2A3E5E; border-radius: 999px">28.09.2026</span>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 36px; height: 36px; border-radius: 999px; background: #1F3A5F; color: #FDB913; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">AY</span>
+<div style="display: flex; flex-direction: column; line-height: 1.2"><span style="font-size: 13px; font-weight: 600">Ardıç Yüzer</span><span style="font-size: 11.5px; color: #A9B4C6">VB33011 · B00527</span></div>
+</div>
+</div>
+</header>
+
+<section aria-label="Seçili müşteri" style="flex-shrink: 0; display: flex; align-items: center; gap: 20px; padding: 22px 40px; background: #0E1D33; color: #F5F3EE">
+<span style="width: 52px; height: 52px; border-radius: 14px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 700">ÖM</span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: Fraunces, Georgia, serif; font-size: 28px; font-weight: 500; line-height: 1.1">Örnek Metal Sanayi A.Ş.</span>
+<span style="font-size: 13px; color: #A9B4C6"><span style="font-family: 'IBM Plex Mono', monospace">VB No 40512873</span> · Ticari KOBİ · Metal ürünleri imalatı (NACE 25)</span>
+</div>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 10px">
+<span style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #16294A; border: 1px solid #243A5E; font-size: 13px; color: #C9D2DF">Sağlık <b style="font-family: Fraunces, Georgia, serif; font-size: 18px; color: #FFFFFF">74</b><span style="color: #6FCF97; font-weight: 700">▲ 5</span></span>
+<span style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #16294A; border: 1px solid #243A5E; font-size: 13px; color: #C9D2DF">Taahhüt <b style="font-family: Fraunces, Georgia, serif; font-size: 18px; color: #FDB913">%66</b></span>
+<a href="#sorgu" style="display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #2A3E5E; color: #F5F3EE; font-size: 14px; font-weight: 500; text-decoration: none">Temizle</a>
+</div>
+</section>
+
+<nav aria-label="Müşteri detayı bölümleri" style="flex-shrink: 0; display: flex; align-items: center; gap: 8px; padding: 14px 40px; background: #FFFFFF; border-bottom: 1px solid #E6E2D9">
+<a href="#ozet" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; color: #0F1A2A; font-size: 14px; font-weight: 500; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; background: #1E7A4C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">✓</span>Müşteri Özeti</a>
+<span style="width: 32px; height: 1px; background: #D9D4C8"></span>
+<a href="#urun" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; color: #0F1A2A; font-size: 14px; font-weight: 500; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; background: #1E7A4C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">✓</span>Ürün ve Dönem Bazında Kârlılık</a>
+<span style="width: 32px; height: 1px; background: #D9D4C8"></span>
+<a href="#taahhut" aria-current="page" style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px 0 8px; border-radius: 999px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; text-decoration: none"><span style="width: 28px; height: 28px; border-radius: 999px; background: #FDB913; color: #0E1D33; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700">3</span>Taahhüt İzleme</a>
+</nav>
+
+<main style="flex-grow: 1; padding: 36px 40px 48px; display: flex; flex-direction: column; gap: 28px">
+
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #8A5A00">Aktif taahhütler · seçili müşteri · örnek veri</span>
+<h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 50px; line-height: 1; font-weight: 500; letter-spacing: -0.02em">Taahhüt <span style="font-style: italic; color: #1F3A5F">İzleme</span></h1>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+<label style="display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px; border-radius: 12px; background: #FFFFFF; border: 1px solid #D9D4C8; font-size: 14px; font-weight: 500; cursor: pointer">
+<input type="checkbox" style="width: 18px; height: 18px; accent-color: #0E1D33; margin: 0">Geçmiş taahhütleri de göster</label>
+<button type="button" style="min-height: 44px; padding: 0 22px; border: 0; border-radius: 12px; background: #0E1D33; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">Sorgula</button>
+<button type="button" style="display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid #D9D4C8; border-radius: 12px; background: #FFFFFF; color: #1E7A4C; font-size: 13.5px; font-weight: 600; cursor: pointer">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"></path><path d="M7 10l5 5 5-5"></path><path d="M5 20h14"></path></svg>Excel’e Aktar</button>
+</div>
+</div>
+
+<div data-if="past" hidden="">
+<div style="padding: 14px 18px; border-radius: 14px; background: #E9EEF5; color: #1F3A5F; font-size: 13.5px">Geçmiş taahhütler listeye eklenir: [GEÇMİŞ TAAHHÜT VERİSİ]</div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr)); gap: 16px">
+<div style="background: #0E1D33; color: #F5F3EE; border-radius: 22px; padding: 24px; display: flex; align-items: center; gap: 22px">
+<div style="position: relative; width: 104px; height: 104px; flex-shrink: 0">
+<svg width="104" height="104" viewBox="0 0 90 90" aria-hidden="true"><circle cx="45" cy="45" r="36" fill="none" stroke="#243A5E" stroke-width="9"></circle><circle cx="45" cy="45" r="36" fill="none" stroke="#FDB913" stroke-width="9" stroke-linecap="round" stroke-dasharray="149.3 226.2" transform="rotate(-90 45 45)"></circle></svg>
+<span style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: Fraunces, Georgia, serif; font-size: 28px; font-weight: 500">%66</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #FDB913">Genel gerçekleşme</span><span style="font-size: 14px; color: #C9D2DF; line-height: 1.5">5 aktif taahhüdün ağırlıklı gerçekleşme durumu</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Getirdiği katkı</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 34px; font-weight: 500; color: #1E7A4C">113.702,05</span>
+<span style="font-size: 12.5px; color: #5F6776">TL · 5 taahhüt toplamı</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Hedefe yakın</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 34px; font-weight: 500">1 <span style="font-size: 16px; color: #5F6776; font-family: 'IBM Plex Sans', sans-serif">/ 5</span></span>
+<span style="font-size: 12.5px; color: #5F6776">%85 ve üzeri gerçekleşme</span>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; padding: 22px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 13px; font-weight: 600; color: #4A5566">Eşleşmeyen ürün</span>
+<span style="font-family: Fraunces, Georgia, serif; font-size: 34px; font-weight: 500">580.000</span>
+<span style="font-size: 12.5px; color: #5F6776">TL karar kârı · Teminat mektubu</span>
+</div>
+</div>
+
+<section aria-labelledby="plT" style="background: #FFFFFF; border: 1px solid #E6E2D9; border-radius: 22px; overflow: hidden">
+<div style="display: flex; align-items: center; justify-content: space-between; padding: 20px 26px; border-bottom: 1px solid #EFECE5">
+<h2 id="plT" style="margin: 0; font-family: Fraunces, Georgia, serif; font-size: 24px; font-weight: 500">Taahhüt İzleme Detayı</h2>
+<div style="display: flex; gap: 16px; font-size: 12.5px; color: #4A5566">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #1E7A4C"></span>%85+</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #A86F00"></span>%60–85</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #B3261E"></span>%60 altı</span>
+</div>
+</div>
+<div role="row" style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; padding: 12px 26px; background: #FBFAF7; border-bottom: 1px solid #EFECE5; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #5F6776">
+<span>Taahhüt türü</span><span>Gerçekleşen / taahhüt miktarı</span><span style="text-align: right">Oran</span><span style="text-align: right">Getirdiği katkı</span><span style="text-align: right">Eşleşen ürün karar kârı</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; align-items: center; padding: 20px 26px; border-bottom: 1px solid #F2F0EA">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 600">Vadesiz mevduat</span>
+<div style="display: flex; gap: 6px"><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #EEF2F8; color: #1F3A5F">TL</span><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #F2F0EA; color: #4A5566">Ortalama</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 16px; border-radius: 8px; background: #F2F0EA">
+<div style="width: 62.5%; height: 100%; border-radius: 8px; background: #A86F00"></div>
+<div style="position: absolute; right: 0; top: -4px; bottom: -4px; width: 3px; border-radius: 2px; background: #0E1D33"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #4A5566"><span><b style="color: #0F1A2A">1.000.000,00 TL</b> gerçekleşen</span><span>hedef 1.600.000,00 TL</span></div>
+</div>
+<span style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 600; color: #A86F00">%62,5</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: #1E7A4C">75.452,05</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px">66.500,00</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; align-items: center; padding: 20px 26px; border-bottom: 1px solid #F2F0EA">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 600">Dış ticaret işlemi</span>
+<div style="display: flex; gap: 6px"><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #EEF2F8; color: #1F3A5F">Adet</span><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #F2F0EA; color: #4A5566">Toplam</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 16px; border-radius: 8px; background: #F2F0EA">
+<div style="width: 95%; height: 100%; border-radius: 8px; background: #1E7A4C"></div>
+<div style="position: absolute; right: 0; top: -4px; bottom: -4px; width: 3px; border-radius: 2px; background: #0E1D33"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #4A5566"><span><b style="color: #0F1A2A">95 adet</b> gerçekleşen</span><span>hedef 100 adet</span></div>
+</div>
+<span style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 600; color: #1E7A4C">%95</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: #1E7A4C">28.500,00</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px">66.500,00</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; align-items: center; padding: 20px 26px; border-bottom: 1px solid #F2F0EA">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 600">DBS kullanım oranı</span>
+<div style="display: flex; gap: 6px"><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #EEF2F8; color: #1F3A5F">%</span><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #F2F0EA; color: #4A5566">Toplam</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 16px; border-radius: 8px; background: #F2F0EA">
+<div style="width: 61.54%; height: 100%; border-radius: 8px; background: #A86F00"></div>
+<div style="position: absolute; right: 0; top: -4px; bottom: -4px; width: 3px; border-radius: 2px; background: #0E1D33"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #4A5566"><span><b style="color: #0F1A2A">%40,00</b> gerçekleşen</span><span>hedef %65,00</span></div>
+</div>
+<span style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 600; color: #A86F00">%61,54</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: #1E7A4C">0,00</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px">50.666,00</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; align-items: center; padding: 20px 26px; border-bottom: 1px solid #F2F0EA">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 600">Üye işyeri cirosu</span>
+<div style="display: flex; gap: 6px"><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #EEF2F8; color: #1F3A5F">TL</span><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #F2F0EA; color: #4A5566">Toplam</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 16px; border-radius: 8px; background: #F2F0EA">
+<div style="width: 48.21%; height: 100%; border-radius: 8px; background: #B3261E"></div>
+<div style="position: absolute; right: 0; top: -4px; bottom: -4px; width: 3px; border-radius: 2px; background: #0E1D33"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #4A5566"><span><b style="color: #0F1A2A">2.700.000,00 TL</b> gerçekleşen</span><span>hedef 5.600.000,00 TL</span></div>
+</div>
+<span style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 600; color: #B3261E">%48,21</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: #1E7A4C">9.450,00</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px">50.666,00</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; align-items: center; padding: 20px 26px; border-bottom: 1px solid #F2F0EA">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 15.5px; font-weight: 600">Otomatik ödeme talimatı</span>
+<div style="display: flex; gap: 6px"><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #EEF2F8; color: #1F3A5F">Adet</span><span style="font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 6px; background: #F2F0EA; color: #4A5566">Ulaşılan</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="position: relative; height: 16px; border-radius: 8px; background: #F2F0EA">
+<div style="width: 60%; height: 100%; border-radius: 8px; background: #A86F00"></div>
+<div style="position: absolute; right: 0; top: -4px; bottom: -4px; width: 3px; border-radius: 2px; background: #0E1D33"></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #4A5566"><span><b style="color: #0F1A2A">3 adet</b> gerçekleşen</span><span>hedef 5 adet</span></div>
+</div>
+<span style="text-align: right; font-family: Fraunces, Georgia, serif; font-size: 30px; font-weight: 600; color: #A86F00">%60</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 500; color: #1E7A4C">300,00</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px">72.834,00</span>
+</div>
+
+<div style="display: grid; grid-template-columns: 250px minmax(0, 1fr) 110px 150px 170px; gap: 24px; align-items: center; padding: 18px 26px; background: #FBF6E6">
+<span style="font-size: 15px; font-weight: 600">Taahhüt eşleşmesi olmayan ürünler</span>
+<span style="font-size: 13px; color: #8A5A00">Teminat mektubu · Kredi Risk No 1540512873000092</span>
+<span style="text-align: right">—</span>
+<span style="text-align: right">—</span>
+<span style="text-align: right; font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600">580.000,00</span>
+</div>
+<div style="padding: 16px 26px; font-size: 13px; line-height: 1.6; color: #4A5566; background: #FBFAF7; border-top: 1px solid #EFECE5">40512873 · Örnek Metal Sanayi A.Ş. · 4 ürün · 3 taahhüt eşleşen ürün · 5 taahhüt · 1 eşleşmeyen ürün. TL karşılıklarında örnek kurlar kullanılmıştır (USD 35,00; EUR 38,00). Adet / kişi bazlı taahhütlerde TL karşılığı gösterilmez.</div>
+</section>
+
+<div style="display: flex; align-items: center; justify-content: space-between">
+<a href="#urun" style="display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 20px; border-radius: 12px; border: 1px solid #D9D4C8; background: #FFFFFF; color: #0F1A2A; font-size: 14px; font-weight: 600; text-decoration: none">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6 6 6"></path></svg>2 · Ürün ve Dönem Bazında Kârlılık</a>
+<span style="font-size: 12.5px; color: #5F6776">Tüm rakamlar örnek veridir; karar ve öneriler örnek müşteri verilerine dayanır.</span>
+</div>
+</main>
+</div>
+</section>
+<script>
+(function(){
+  var ids=['main','sorgu','ozet','urun','taahhut'];
+  function show(){var h=(location.hash||'#main').slice(1);if(ids.indexOf(h)<0)h='main';
+    ids.forEach(function(i){document.getElementById(i).hidden=i!==h});window.scrollTo(0,0);
+    document.title=({main:'Genel Görünüm',sorgu:'Müşteri Sorgu',ozet:'Müşteri Özeti',urun:'Ürün ve Dönem Bazında Kârlılık',taahhut:'Taahhüt İzleme'})[h]+' · Verimlilik ve Kârlılık';}
+  window.addEventListener('hashchange',show);show();
+
+  // Müşteri Sorgu: arama anahtarı seçici
+  var grp=document.querySelector('#sorgu [role=group]');
+  if(grp){var lab=[].slice.call(document.querySelectorAll('#sorgu label')).filter(function(l){return l.firstChild&&/^Müşteri ·/.test(l.firstChild.textContent)})[0];
+    grp.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){
+      grp.querySelectorAll('button').forEach(function(x){var on=x===b;x.setAttribute('aria-pressed',on);x.style.background=on?'#0E1D33':'transparent';x.style.color=on?'#FFFFFF':'#4A5566';x.style.fontWeight=on?'600':'500'});
+      if(lab)lab.firstChild.textContent='Müşteri · '+b.textContent;})});}
+
+  // Ürün / Dönem görünüm anahtarı
+  var vg=document.querySelector('#urun [role=group][aria-label="Görünüm"]');
+  if(vg){var bs=vg.querySelectorAll('button'),panel=document.querySelector('#urun [data-if=isPeriod]');
+    bs.forEach(function(b,i){b.addEventListener('click',function(){
+      bs.forEach(function(x,j){var on=i===j;x.setAttribute('aria-pressed',on);x.style.background=on?'#0E1D33':'transparent';x.style.color=on?'#FFFFFF':'#4A5566'});
+      if(panel)panel.hidden=i===0;})});}
+
+  // Taahhüt: geçmiş taahhütler
+  var cb=document.querySelector('#taahhut input[type=checkbox]'),pp=document.querySelector('#taahhut [data-if=past]');
+  if(cb&&pp)cb.addEventListener('change',function(){pp.hidden=!cb.checked});
+
+  // Formlar sayfayı yenilemesin
+  document.querySelectorAll('form').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault()})});
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="tr"><head><meta charset="utf-8"><title>Verimlilik ve Kârlılık — tanıtım filmi</title>
+<link rel="stylesheet" href="fonts.css">
+<style>
+:root{
+  --navy:#0E1D33;--navy-2:#16294A;--navy-3:#1F3A5F;--deep:#081221;
+  --gold:#FDB913;--gold-ink:#8A5A00;--gold-soft:#FBF6E6;
+  --ground:#F5F3EE;--panel:#FFFFFF;--panel-2:#FBFAF7;--line:#E6E2D9;--line-2:#EFECE5;--line-3:#D9D4C8;
+  --ink:#0F1A2A;--ink-2:#4A5566;--ink-3:#5F6776;--on-navy:#F5F3EE;--on-navy-2:#C9D2DF;--on-navy-3:#A9B4C6;
+  --pos:#1E7A4C;--pos-bg:#E3F3EA;--neg:#B3261E;--neg-bg:#FBE7E5;--warn:#8A5A00;--warn-bg:#FFF1CC;--amber:#D9950B;
+  --serif:Fraunces,Georgia,serif;--sans:"IBM Plex Sans",system-ui,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+html,body{margin:0;height:100%;background:#000;overflow:hidden}
+body{display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--deep);perspective:1700px;perspective-origin:50% 45%;
+  font-family:var(--sans);color:var(--on-navy);transform-origin:0 0;flex:none}
+body.render{display:block} body.render #stage{transform:none!important}
+.L{position:absolute;left:50%;top:50%;will-change:transform,opacity;backface-visibility:hidden}
+img{display:block;user-select:none}
+.page,#car{will-change:transform!important}
+/* zemin */
+#bg{position:absolute;inset:0;background:radial-gradient(1200px 800px at 50% 40%,#12284a 0%,#0b1a30 45%,#060e1a 100%)}
+.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+#g1{width:900px;height:900px;background:radial-gradient(circle,rgba(253,185,19,.35),rgba(253,185,19,0) 65%)}
+#g2{width:1100px;height:1100px;background:radial-gradient(circle,rgba(70,120,200,.45),rgba(70,120,200,0) 65%)}
+#dots{position:absolute;inset:-64px;background-image:radial-gradient(rgba(201,210,223,.16) 1.2px,transparent 1.6px);background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(900px 600px at 50% 50%,#000 20%,transparent 80%);mask-image:radial-gradient(900px 600px at 50% 50%,#000 20%,transparent 80%)}
+#vig{position:absolute;inset:0;background:radial-gradient(1400px 900px at 50% 50%,transparent 55%,rgba(0,0,0,.55) 100%);pointer-events:none}
+#grain{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;pointer-events:none}
+#flash{position:absolute;inset:0;background:radial-gradient(900px 600px at 50% 50%,rgba(255,236,190,.95),rgba(253,185,19,.25) 50%,rgba(0,0,0,0) 80%);opacity:0;pointer-events:none}
+#fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+/* başlık tipografisi */
+.ttl{position:absolute;white-space:nowrap}
+.kick{font-family:var(--mono);font-size:17px;font-weight:500;letter-spacing:.24em;color:var(--gold);display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.kick i{display:block;width:44px;height:2px;background:var(--gold)}
+.h{font-family:var(--serif);font-weight:500;font-size:88px;line-height:1.02;letter-spacing:-.025em;color:var(--on-navy)}
+.h em{font-style:italic;color:var(--gold);font-weight:500}
+.w{display:inline-block;will-change:transform,opacity,filter}
+.sub{font-size:22px;line-height:1.5;color:var(--on-navy-3);margin-top:24px;white-space:normal;width:500px}
+/* 3D sayfa */
+.page{transform-style:preserve-3d}
+.page>img.full{border-radius:14px;box-shadow:0 60px 160px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08)}
+.chip{position:absolute;transform-origin:50% 50%}
+.chip img{width:100%;height:100%}
+.shadow{box-shadow:0 30px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.06)}
+.gloss{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(105deg,rgba(255,255,255,0) 42%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 58%);background-size:300% 100%;background-repeat:no-repeat;mix-blend-mode:soft-light;opacity:.9}
+.sock{background:#0A1628;box-shadow:inset 0 6px 18px rgba(0,0,0,.6);visibility:hidden;transform:translateZ(50px)}
+.dim{position:absolute;inset:0;border-radius:14px;background:#081221;opacity:0}
+/* öneri bağlayıcı */
+.half{position:absolute;background-size:100% 100%;border-radius:16px;overflow:hidden}
+.conn{position:absolute;height:2px;background:linear-gradient(90deg,rgba(253,185,19,.2),var(--gold));transform-origin:0 50%}
+.conn b{position:absolute;right:-2px;top:-7px;width:0;height:0;border-left:14px solid var(--gold);border-top:8px solid transparent;border-bottom:8px solid transparent}
+.pulse{position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 18px 6px rgba(253,185,19,.8);top:-6px}
+.tag{position:absolute;font-family:var(--mono);font-size:14px;font-weight:600;letter-spacing:.18em;color:var(--navy);background:var(--gold);padding:7px 12px;border-radius:999px;white-space:nowrap}
+.ok{position:absolute;display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:var(--pos);background:var(--pos-bg);padding:6px 12px 6px 8px;border-radius:999px;white-space:nowrap}
+.ok svg{width:18px;height:18px}
+.scan{position:absolute;top:0;bottom:0;width:180px;background:linear-gradient(90deg,rgba(253,185,19,0),rgba(253,185,19,.35) 60%,rgba(255,240,200,.9) 96%,rgba(253,185,19,0));mix-blend-mode:screen}
+/* görev paneli (ürün dilinde) */
+.panel{width:1060px;background:var(--panel);border:1px solid var(--line);border-radius:22px;color:var(--ink);box-shadow:0 60px 140px rgba(0,0,0,.5);overflow:hidden}
+.ph{display:flex;align-items:flex-end;justify-content:space-between;padding:30px 34px 22px;border-bottom:1px solid var(--line-2)}
+.k{font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.ph h3{margin:8px 0 0;font-family:var(--serif);font-size:34px;font-weight:500;letter-spacing:-.01em}
+.prog{width:300px;text-align:right}
+.prog b{font-family:var(--serif);font-size:30px;font-weight:500}.prog small{font-size:14px;color:var(--ink-3);margin-left:6px}
+.bar{height:8px;background:var(--line-2);border-radius:99px;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--pos);border-radius:99px}
+.task{display:grid;grid-template-columns:52px 1fr 150px 160px 190px;align-items:center;gap:0;padding:22px 34px;border-bottom:1px solid var(--line-2);position:relative}
+.task:last-child{border-bottom:0}
+.task .n{font-family:var(--mono);font-size:14px;color:var(--ink-3)}
+.task b{display:block;font-size:20px;font-weight:600}.task small{display:block;font-size:14.5px;color:var(--ink-3);margin-top:4px}
+.due{font-family:var(--mono);font-size:14px;color:var(--ink-2)}.due em{display:block;font-style:normal;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--ink-3);margin-bottom:3px}
+.who{display:flex;align-items:center;gap:10px;position:relative;height:44px}
+.av{width:40px;height:40px;border-radius:50%;background:var(--navy-3);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700}
+.who span{font-size:14px;color:var(--ink-2)}
+.assign{position:absolute;left:0;top:2px;height:40px;padding:0 14px 0 8px;border:1.5px dashed var(--line-3);border-radius:99px;display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink-2);background:#fff}
+.assign i{width:26px;height:26px;border-radius:50%;border:1.5px dashed var(--line-3);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:16px;line-height:1}
+.st{justify-self:end;position:relative;height:36px;width:170px}
+.st span{position:absolute;right:0;top:0;height:36px;display:flex;align-items:center;gap:7px;padding:0 14px;border-radius:99px;font-size:14px;font-weight:700;white-space:nowrap}
+.s-new{background:#E9EEF5;color:var(--navy-3)}.s-go{background:var(--warn-bg);color:var(--warn)}.s-done{background:var(--pos-bg);color:var(--pos)}
+.s-as{background:var(--navy);color:var(--gold)}
+.strike{position:absolute;left:86px;top:36px;height:2px;background:var(--ink-3);width:0}
+.toast{position:absolute;display:flex;align-items:center;gap:12px;background:var(--navy);color:var(--on-navy);border-radius:14px;padding:14px 20px;font-size:16px;font-weight:500;box-shadow:0 20px 60px rgba(0,0,0,.45);white-space:nowrap}
+.toast i{width:26px;height:26px;border-radius:50%;background:var(--pos);display:flex;align-items:center;justify-content:center}
+#cursor{position:absolute;left:0;top:0;width:34px;height:34px;pointer-events:none;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.ripple{position:absolute;width:60px;height:60px;margin:-30px 0 0 -30px;border-radius:50%;border:3px solid var(--gold);opacity:0}
+/* taahhüt */
+.dk{width:430px;height:560px;border-radius:26px;background:linear-gradient(160deg,#16294A,#0E1D33);border:1px solid #2A3E5E;box-shadow:0 60px 140px rgba(0,0,0,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px}
+.dk .rv{position:relative;width:260px;height:260px}
+.dk .rv b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:84px;font-weight:500;letter-spacing:-.03em}
+.dk .rv b small{font-size:44px;color:var(--gold);margin-right:2px}
+.dk .lab{font-size:14px;font-weight:700;letter-spacing:.2em;color:var(--gold)}
+.dk .s2{font-size:17px;color:var(--on-navy-2);text-align:center;line-height:1.5}
+.dk .katki{margin-top:6px;padding:12px 18px;border-radius:14px;background:rgba(30,122,76,.16);border:1px solid rgba(80,190,130,.25);text-align:center}
+.dk .katki small{display:block;font-size:12px;font-weight:700;letter-spacing:.16em;color:#8FD3AE}
+.dk .katki b{font-family:var(--mono);font-size:26px;font-weight:600;color:#BFF0D3}
+.tlist{width:1150px;background:var(--panel);border-radius:26px;color:var(--ink);box-shadow:0 60px 140px rgba(0,0,0,.5);padding:30px 36px 18px}
+.tlist .th{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+.tlist h3{margin:6px 0 0;font-family:var(--serif);font-size:34px;font-weight:500}
+.lg{display:flex;gap:16px;font-size:13.5px;color:var(--ink-2);align-items:center}
+.rb{display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:99px;font-family:var(--mono);font-size:13px;font-weight:600}
+.rb.g{background:var(--pos-bg);color:var(--pos)}.rb.y{background:var(--warn-bg);color:var(--warn)}.rb.r{background:var(--neg-bg);color:var(--neg)}
+.trow{display:grid;grid-template-columns:260px 1fr 110px 150px;gap:24px;align-items:center;padding:17px 0;border-top:1px solid var(--line-2);position:relative}
+.trow .t b{display:block;font-size:18px;font-weight:600}.trow .t small{display:block;font-size:13px;color:var(--ink-3);margin-top:3px;font-family:var(--mono)}
+.trk{height:14px;background:var(--line-2);border-radius:99px;position:relative}
+.trk i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;width:0}
+.trk u{position:absolute;right:0;top:-8px;bottom:-8px;border-right:2px dashed var(--ink-3);opacity:.5}
+.trow .v{justify-self:start}
+.trow .kt{font-family:var(--mono);font-size:16px;text-align:right;color:var(--pos)}
+.risk{position:absolute;left:-10px;right:-10px;top:4px;bottom:4px;border-radius:14px;box-shadow:0 0 0 2px var(--neg);opacity:0}
+/* kapanış */
+#logo{display:flex;align-items:center;gap:36px}
+#mark{width:132px;height:132px;border-radius:34px;background:var(--gold);position:relative;box-shadow:0 20px 80px rgba(253,185,19,.35)}
+#mark i{position:absolute;bottom:34px;width:18px;background:var(--navy);border-radius:3px}
+#wm b{display:block;font-family:var(--serif);font-size:92px;font-weight:500;letter-spacing:-.03em;line-height:1}
+#wm small{display:block;font-family:var(--mono);font-size:17px;letter-spacing:.3em;color:var(--on-navy-3);margin-top:16px}
+#endline{font-family:var(--serif);font-style:italic;font-size:46px;color:var(--gold);white-space:nowrap}
+#disc{font-size:15px;color:var(--on-navy-3);white-space:nowrap;letter-spacing:.02em}
+.cap{font-family:var(--serif);font-size:46px;font-weight:500;white-space:nowrap;letter-spacing:-.01em}
+.cap span{color:rgba(245,243,238,.35)} .cap i{font-style:normal;color:rgba(245,243,238,.25);margin:0 18px}
+</style></head>
+<body>
+<div id="stage">
+  <div id="bg"></div><div class="glow L" id="g1"></div><div class="glow L" id="g2"></div><div id="dots"></div>
+
+  <!-- S1 açılış -->
+  <div class="L" id="s1line" style="height:2px;width:640px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
+  <div class="L ttl" id="s1"><div class="kick" style="justify-content:center"><i></i>HER SABAH AYNI SORU<i></i></div>
+    <div class="h" style="font-size:132px;text-align:center" data-words>Bugün nereye<br><em>bakmalıyım?</em></div></div>
+
+  <!-- S2 portföy özeti: gerçek ekran 3D -->
+  <div class="L page" id="page" style="width:1440px;height:1552px">
+    <img class="full" src="ui/genel.png" style="width:1440px;height:1552px">
+    <div class="dim" id="pdim"></div>
+    <div class="chip shadow" id="phero" style="left:40px;top:341px;width:1360px;height:455px;border-radius:28px"><img src="ui/hero.png" style="border-radius:28px"><div class="gloss" id="hgloss"></div></div>
+    <div class="chip sock" id="sk0" style="left:84px;top:560px;width:244px;height:159px;border-radius:16px"></div><div class="chip sock" id="sk1" style="left:341px;top:560px;width:244px;height:159px;border-radius:16px"></div><div class="chip sock" id="sk2" style="left:598px;top:560px;width:244px;height:159px;border-radius:16px"></div><div class="chip sock" id="sk3" style="left:856px;top:560px;width:244px;height:159px;border-radius:16px"></div><div class="chip sock" id="sk4" style="left:1113px;top:560px;width:244px;height:159px;border-radius:16px"></div>
+    <div class="chip" id="pt0" style="left:84px;top:560px;width:244px;height:159px;border-radius:16px"><img src="ui/tile0.png" style="border-radius:16px"></div>
+    <div class="chip" id="pt1" style="left:341px;top:560px;width:244px;height:159px;border-radius:16px"><img src="ui/tile1.png" style="border-radius:16px"></div>
+    <div class="chip" id="pt2" style="left:598px;top:560px;width:244px;height:159px;border-radius:16px"><img src="ui/tile2.png" style="border-radius:16px"></div>
+    <div class="chip" id="pt3" style="left:856px;top:560px;width:244px;height:159px;border-radius:16px"><img src="ui/tile3.png" style="border-radius:16px"></div>
+    <div class="chip" id="pt4" style="left:1113px;top:560px;width:244px;height:159px;border-radius:16px"><img src="ui/tile4.png" style="border-radius:16px"></div>
+  </div>
+  <div class="L ttl" id="t2"><div class="kick"><i></i>PORTFÖY ÖZETİ</div><div class="h" data-words>Tüm portföy.<br><em>Tek bakışta.</em></div>
+    <div class="sub" data-sub>Net kâr, taahhüt riski, cüzdan payı ve satış fırsatları; şube ve portföy kırılımıyla, referans tarihine göre.</div></div>
+
+  <!-- S3 öneriler -->
+  <div class="L shadow" id="card0" style="width:952px;height:301px;border-radius:18px"><img src="ui/card0.png" style="width:952px;height:301px;border-radius:18px"><div class="scan" id="scan"></div><div class="gloss" id="cgloss"></div></div>
+  <div class="L half shadow" id="s0a" style="width:475px;height:74px;background-image:url(ui/signal0.png);background-size:950px 74px;background-position:0 0"></div>
+  <div class="L half shadow" id="s0b" style="width:475px;height:74px;background-image:url(ui/signal0.png);background-size:950px 74px;background-position:-475px 0"></div>
+  <div class="L half shadow" id="s1a" style="width:475px;height:74px;background-image:url(ui/signal1.png);background-size:950px 74px;background-position:0 0"></div>
+  <div class="L half shadow" id="s1b" style="width:475px;height:74px;background-image:url(ui/signal1.png);background-size:950px 74px;background-position:-475px 0"></div>
+  <div class="conn" id="c0"><b></b><div class="pulse" id="c0p"></div></div>
+  <div class="conn" id="c1"><b></b><div class="pulse" id="c1p"></div></div>
+  <div class="tag L" id="tg0">ÖNERİ HAZIR</div><div class="tag L" id="tg1">ÖNERİ HAZIR</div>
+  <div class="L ttl" id="t3"><div class="kick"><i></i>AKILLI ÖNERİLER</div><div class="h" style="font-size:64px" data-words>Sinyali yakalar.<br><em>Öneriyi hazırlar.</em></div>
+    <div class="sub" data-sub>Mizan, BKM ve Risk Merkezi sinyalleri müşteri bazında okunur; uygun ürün önerisi hazır gelir.</div></div>
+
+  <!-- S4 görevler -->
+  <div class="L shadow" id="bulten" style="width:380px;height:262px;border-radius:18px"><img src="ui/bulten.png" style="width:380px;height:262px;border-radius:18px"></div>
+  <div class="L panel" id="tasks">
+    <div class="ph"><div><div class="k">Görev takibi · 28.09.2026</div><h3>Bugünün görevleri</h3></div>
+      <div class="prog"><b id="pdone">0</b><small>/ 3 tamamlandı</small><div class="bar"><i id="pbar"></i></div></div></div>
+    <div class="task" id="tk0"><span class="n">01</span><div><b>Rotatif / Spot Kredi görüşmesi</b><small>Örnek Metal Sanayi A.Ş. · Sinyal: ciro ve stok artışı</small></div>
+      <div class="due"><em>SON TARİH</em>02.10.2026</div>
+      <div class="who"><div class="assign" id="asg"><i>+</i>Ata</div><div class="av" id="av0" style="opacity:0">AY</div><span id="av0n" style="opacity:0">Ardıç Yüzer</span></div>
+      <div class="st"><span class="s-new" id="st0a">Yeni</span><span class="s-as" id="st0b" style="opacity:0">Atandı</span></div></div>
+    <div class="task" id="tk1"><span class="n">02</span><div><b>Fiziksel / Sanal POS teklifi</b><small>Anadolu Gıda Dağıtım A.Ş. · Sinyal: BKM işlem hacmi artışı</small></div>
+      <div class="due"><em>SON TARİH</em>05.10.2026</div>
+      <div class="who"><div class="av">AY</div><span>Ardıç Yüzer</span></div>
+      <div class="st"><span class="s-go">● Devam ediyor</span></div></div>
+    <div class="task" id="tk2"><span class="n">03</span><div><b>Vadesi yaklaşan taahhüt görüşmeleri</b><small>4 aktif taahhüt · bitiş 30.11.2026</small></div>
+      <div class="due"><em>SON TARİH</em>30.09.2026</div>
+      <div class="who"><div class="av">AY</div><span>Ardıç Yüzer</span></div>
+      <div class="st" id="st2"><span class="s-go" id="st2a">● Devam ediyor</span><span class="s-done" id="st2b" style="opacity:0"><svg width="16" height="16" viewBox="0 0 16 16"><path id="chk" d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#1E7A4C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="16" stroke-dashoffset="16"/></svg>Tamamlandı</span></div></div>
+  </div>
+  <div class="toast L" id="toast"><i><svg width="14" height="14" viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></i>Görev atandı · Ardıç Yüzer</div>
+  <div class="L ttl" id="t4"><div class="kick"><i></i>GÖREV TAKİBİ</div><div class="h" style="font-size:78px" data-words>Kim, neyi,<br>ne zaman?<br><em>Hepsi takipte.</em></div></div>
+
+  <!-- S5 taahhütler -->
+  <div class="L" id="tbg" style="width:1360px;height:646px"><img src="ui/ttablo.png" style="width:1360px;height:646px;border-radius:18px"></div>
+  <div class="L dk" id="tring">
+    <div class="rv"><svg width="260" height="260" viewBox="0 0 260 260"><circle cx="130" cy="130" r="110" fill="none" stroke="#243A5E" stroke-width="22"/>
+      <circle id="rarc" cx="130" cy="130" r="110" fill="none" stroke="#FDB913" stroke-width="22" stroke-linecap="round" transform="rotate(-90 130 130)" stroke-dasharray="691.15" stroke-dashoffset="691.15"/></svg>
+      <b><small>%</small><span id="rnum">0</span></b></div>
+    <div class="lab">GENEL GERÇEKLEŞME</div><div class="s2">5 aktif taahhüdün<br>gerçekleşme durumu</div>
+    <div class="katki"><small>GETİRDİĞİ KATKI</small><b id="knum">0,00</b> <span style="font-size:14px;color:#8FD3AE">TL</span></div>
+  </div>
+  <div class="L tlist" id="tlist"><div class="th"><div><div class="k">Taahhüt izleme · aktif taahhütler</div><h3>Taahhüt İzleme Detayı</h3></div>
+    <div class="lg"><span class="rb g">%100</span>Hedef<span class="rb y">%50–99</span>Devam<span class="rb r">%50 altı</span>Riskli</div></div>
+    <div id="trows"></div></div>
+  <div class="L ttl" id="t5"><div class="kick"><i></i>TAAHHÜT DURUMU</div><div class="h" data-words>Her taahhüdün nabzı <em>elinizde.</em></div></div>
+
+  <!-- S6 dört ekran -->
+  <div class="L" id="car" style="width:1px;height:1px;transform-style:preserve-3d">
+    <div class="chip" id="cs0" style="width:1120px;height:700px;left:-560px;top:-350px"><img src="ui/genel.png" style="width:1120px;height:700px;object-fit:cover;object-position:top;border-radius:16px"></div>
+    <div class="chip" id="cs1" style="width:1120px;height:700px;left:-560px;top:-350px"><img src="ui/ozet.png" style="width:1120px;height:700px;object-fit:cover;object-position:top;border-radius:16px"></div>
+    <div class="chip" id="cs2" style="width:1120px;height:700px;left:-560px;top:-350px"><img src="ui/karlilik.png" style="width:1120px;height:700px;object-fit:cover;object-position:0 12%;border-radius:16px"></div>
+    <div class="chip" id="cs3" style="width:1120px;height:700px;left:-560px;top:-350px"><img src="ui/taahhut.png" style="width:1120px;height:700px;object-fit:cover;object-position:top;border-radius:16px"></div>
+  </div>
+  <div class="L cap" id="cap"><span id="cw0">Özet</span><i>·</i><span id="cw1">Müşteri</span><i>·</i><span id="cw2">Kârlılık</span><i>·</i><span id="cw3">Taahhüt</span></div>
+
+  <!-- S7 kapanış -->
+  <div class="L" id="logo"><div id="mark"><i id="b0" style="left:30px"></i><i id="b1" style="left:57px"></i><i id="b2" style="left:84px"></i></div>
+    <div id="wm"><b>Verimlilik ve Kârlılık</b><small>DEĞER360 · PORTFÖY ÇALIŞMA EKRANI</small></div></div>
+  <div class="L" id="endline">Portföyü izlemeyin, yönetin.</div>
+  <div class="L" id="disc">Görüntülerdeki tüm rakamlar örnek veridir.</div>
+
+  <svg id="cursor" viewBox="0 0 34 34"><path d="M6 3l0 24 6.5-6 4.2 9.5 4.3-1.9-4.2-9.3 8.9-.3z" fill="#fff" stroke="#0E1D33" stroke-width="2" stroke-linejoin="round"/></svg>
+  <div class="ripple" id="rip"></div>
+  <div id="vig"></div><canvas id="grain" width="512" height="512" style="width:1920px;height:1080px"></canvas><div id="flash"></div><div id="fade"></div>
+</div>
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+//  Verimlilik ve Kârlılık — ürün tanıtım filmi (40 sn). window.seek(t) o anın sahnesini kurar.
+//  Render: render.mjs her kare için seek(t) çağırır ve ekran görüntüsü alır. Tarayıcıda açınca oynar.
+//  00–04  açılış: "Bugün nereye bakmalıyım?"
+//  04–11  portföy özeti: gerçek ekran 3D uzayda, kamera hero'ya dalar, kutucuklar yükselir
+//  11–17  öneriler: müşteri kartı taranır, sinyal şeridi ayrılır → sinyal ⟶ önerilen ürün
+//  17–24  görev takibi: bülten görev paneline dönüşür, imleç görev atar, görev tamamlanır
+//  24–31  taahhütler: halka %66'ya dolar, gerçekleşme çubukları, riskli satır nabız atar
+//  31–35  dört ekran 3D karuselde
+//  35–40  kapanış
+// ─────────────────────────────────────────────────────────────────────────────
+const DUR = 40, $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x)), lerp = (a, b, p) => a + (b - a) * p;
+const seg = (t, a, b) => clamp((t - a) / (b - a));
+const oC = x => 1 - Math.pow(1 - x, 3), oQ = x => 1 - Math.pow(1 - x, 5), oX = x => x >= 1 ? 1 : 1 - Math.pow(2, -10 * x);
+const ioC = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2, ioS = x => x < .5 ? 16 * x ** 5 : 1 - Math.pow(-2 * x + 2, 5) / 2;
+const oB = (x, s = 1.7) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
+const tw = (t, a, b, v0, v1, e = oC) => lerp(v0, v1, e(seg(t, a, b)));
+// çok duraklı anahtar kare: [[t, değer], ...], her aralıkta kolaylaştırma
+function kf(t, keys, e = ioC) { if (t <= keys[0][0]) return keys[0][1]; for (let i = 1; i < keys.length; i++) { const [t1, v1, ee] = keys[i]; if (t <= t1) { const [t0, v0] = keys[i - 1]; return lerp(v0, v1, (ee || e)(seg(t, t0, t1))); } } return keys[keys.length - 1][1]; }
+function put(el, o) {
+  const { x = 0, y = 0, z = 0, rx = 0, ry = 0, rz = 0, s = 1, op = 1, blur = 0, br = 1 } = o;
+  if (op <= 0.002) { el.style.visibility = 'hidden'; return; }
+  el.style.visibility = 'visible'; el.style.opacity = op >= 0.999 ? '' : op;
+  el.style.transform = `translate(-50%,-50%) translate3d(${x}px,${y}px,${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${s})`;
+  el.style.filter = (blur > 0.05 || br !== 1) ? `blur(${blur.toFixed(2)}px) brightness(${br})` : '';
+}
+const hide = el => el.style.visibility = 'hidden';
+const trNum = (v, d = 0) => { const s = Math.abs(v).toFixed(d).split('.'); s[0] = s[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.'); return s.join(','); };
+
+// ── ses olayları ─────────────────────────────────────────────────────────────
+window.SFX = []; const sfx = (t, k, v = 0) => SFX.push({ t: +t.toFixed(3), k, v });
+
+// ── başlıklar: sözcük sözcük bulanıklıktan netleşir ──────────────────────────
+function splitWords(el) { const walk = n => { [...n.childNodes].forEach(c => { if (c.nodeType === 3) { const f = document.createDocumentFragment();
+  c.textContent.split(/(\s+)/).forEach(p => { if (!p) return; if (/^\s+$/.test(p)) f.appendChild(document.createTextNode(p)); else { const s = document.createElement('span'); s.className = 'w'; s.textContent = p; f.appendChild(s); } }); c.replaceWith(f); }
+  else if (c.nodeType === 1 && c.tagName !== 'BR') walk(c); }); }; walk(el); }
+document.querySelectorAll('[data-words]').forEach(splitWords);
+function title(el, t, tin, tout, pos, center = false, dir = 1) {
+  const p = seg(t, tin - 0.1, tout + 0.6); if (p <= 0 || p >= 1) { hide(el); return; }
+  el.style.visibility = 'visible'; el.style.opacity = ''; el.style.left = pos[0] + 'px'; el.style.top = pos[1] + 'px';
+  el.style.transform = center ? 'translate(-50%,-50%)' : 'translateY(-50%)';
+  const kick = el.querySelector('.kick'), ws = el.querySelectorAll('.w'), sub = el.querySelector('[data-sub]'), out = oC(seg(t, tout, tout + 0.5));
+  if (kick) { const k = oQ(seg(t, tin, tin + 0.6)); kick.style.opacity = k * (1 - out); kick.style.transform = `translateX(${(1 - k) * -30 * dir}px)`; }
+  ws.forEach((w, i) => { const q = oQ(seg(t, tin + 0.15 + i * 0.075, tin + 0.95 + i * 0.075)); const o2 = oC(seg(t, tout + i * 0.03, tout + 0.45 + i * 0.03));
+    w.style.opacity = q * (1 - o2); w.style.transform = `translateY(${(1 - q) * 46 - o2 * 30}px)`; w.style.filter = `blur(${((1 - q) * 14 + o2 * 10).toFixed(1)}px)`; });
+  if (sub) { const q = oC(seg(t, tin + 0.7, tin + 1.4)); sub.style.opacity = q * (1 - out); sub.style.transform = `translateY(${(1 - q) * 18}px)`; }
+}
+
+// ── taahhüt satırları ────────────────────────────────────────────────────────
+const TR = [['Dış ticaret işlemi', 'TH-2026-2873004 · Adet', 95, '28.500,00'], ['Vadesiz mevduat', 'TH-2026-2873001 · TL', 62.5, '75.452,05'],
+            ['DBS kullanım oranı', 'TH-2026-2873002 · %', 61.54, '0,00'], ['Otomatik ödeme talimatı', 'TH-2026-2873003 · Adet', 60, '300,00'], ['Üye işyeri cirosu', 'TH-2026-2873005 · TL', 48.21, '9.450,00']];
+$('trows').innerHTML = TR.map(([a, b, v, k], i) => `<div class="trow" id="tr${i}"><div class="t"><b>${a}</b><small>${b}</small></div><div class="trk"><i id="tf${i}" style="background:${v < 50 ? 'var(--neg)' : v >= 100 ? 'var(--pos)' : 'var(--amber)'}"></i><u></u></div><div class="v"><span class="rb ${v < 50 ? 'r' : v >= 100 ? 'g' : 'y'}" id="tv${i}">%0</span></div><div class="kt" id="tk${i}" style="${k === '0,00' ? 'color:var(--ink-3)' : ''}">${k}</div>${v < 50 ? '<div class="risk" id="risk"></div>' : ''}</div>`).join('');
+
+// ── zemin: gren (sabit tohum) ────────────────────────────────────────────────
+const GR = $('grain').getContext('2d'); const GI = GR.createImageData(512, 512);
+function grain(f) { let s = (f * 7919 + 13) % 2147483647 || 1; const r = () => (s = s * 16807 % 2147483647) / 2147483647;
+  for (let i = 0; i < GI.data.length; i += 4) { const v = r() * 255; GI.data[i] = GI.data[i + 1] = GI.data[i + 2] = v; GI.data[i + 3] = 255; } GR.putImageData(GI, 0, 0); }
+
+// ── sahne zamanları ──────────────────────────────────────────────────────────
+const S2 = 3.7, S3 = 10.6, S4 = 16.9, S5 = 23.7, S6 = 30.6, S7 = 35.3;
+// ses olayları (zaman çizelgesiyle birlikte)
+sfx(0.35, 'shimmer'); sfx(S2 - 0.1, 'whoosh', 1); sfx(S2 + 3.55, 'whoosh', 0); for (let i = 0; i < 5; i++) sfx(S2 + 4.75 + i * 0.09, 'pop', i);
+sfx(S3 - 0.2, 'whoosh', 1); sfx(S3 + 0.9, 'scan'); sfx(S3 + 2.2, 'whoosh', 0); sfx(S3 + 3.1, 'ding', 0); sfx(S3 + 3.9, 'ding', 1);
+sfx(S4 - 0.2, 'whoosh', 1); sfx(S4 + 1.0, 'swell'); sfx(S4 + 3.1, 'click'); sfx(S4 + 3.35, 'pop', 2); sfx(S4 + 3.6, 'ding', 2); sfx(S4 + 4.75, 'click'); sfx(S4 + 5.0, 'ding', 3);
+sfx(S5 - 0.2, 'whoosh', 1); sfx(S5 + 0.8, 'rise'); for (let i = 0; i < 5; i++) sfx(S5 + 1.5 + i * 0.14, 'tick', i); sfx(S5 + 3.2, 'alert'); sfx(S5 + 3.9, 'alert');
+sfx(S6 - 0.1, 'whoosh', 1); for (let i = 1; i < 4; i++) sfx(S6 + 0.6 + i, 'whoosh', 2); sfx(S7 - 0.25, 'rise2'); sfx(S7, 'hit');
+window.BEATS = { bpm: 120, start: S2, stop: S7, hit: S7 };
+
+function seek(t) {
+  const f = Math.round(t * 30);
+  // zemin hareketi
+  put($('g1'), { x: kf(t, [[0, -300], [S3, 380], [S5, -420], [S7, 0]]), y: kf(t, [[0, -120], [S4, 200], [S6, -150], [S7, -40]]), op: 0.55 + 0.15 * Math.sin(t * 0.9) });
+  put($('g2'), { x: kf(t, [[0, 420], [S3, -400], [S5, 380], [S7, 0]]), y: kf(t, [[0, 260], [S4, -160], [S6, 180], [S7, 120]]), op: kf(t, [[S7 - 0.5, 0.55], [S7 + 1, 0.2]]) });
+  $('dots').style.transform = `translate(${(-t * 9) % 34}px,${(-t * 5) % 34}px)`;
+  grain(f);
+
+  // ═ S1 açılış ═
+  { const lp = oX(seg(t, 0.25, 1.3)), out = seg(t, 3.0, 3.8);
+    put($('s1line'), { y: kf(t, [[1.0, 0], [1.6, 150, oC]]), s: lp * (1 + out * 2), op: (1 - ioC(out)) * clamp(lp * 3) });
+    title($('s1'), t, 0.9, 3.05, [960, 520], true);
+    if (t > 3.0 && t < 3.9) { const e = ioC(seg(t, 3.0, 3.8)); $('s1').style.transform += ` translateZ(${e * 500}px)`; $('s1').style.opacity = 1 - e; } }
+
+  // ═ S2 portföy özeti ═
+  { const a = S2, pg = $('page');
+    if (t > a - 0.2 && t < S3 + 0.2) {
+      const zoom = ioS(seg(t, a + 3.3, a + 4.5)), ex = seg(t, a + 6.3, a + 7.2);
+      const ent = oQ(seg(t, a - 0.1, a + 1.8));
+      const s = lerp(0.78, 1.28, zoom);
+      put(pg, { x: lerp(lerp(900, 330, ent), 0, zoom) - ioC(ex) * 2600, y: lerp(lerp(900, kf(t, [[a + 1.5, 120], [a + 3.3, -40]]), ent), 208 * s - 16, zoom),
+        z: lerp(lerp(-1500, -260, ent), 0, zoom), rx: lerp(lerp(55, 24, ent), 0, zoom) + ioC(ex) * 8, ry: lerp(lerp(-30, -18, ent), 0, zoom) - ioC(ex) * 55,
+        rz: lerp(lerp(-16, -5, ent), 0, zoom), s, op: 1 });
+      $('pdim').style.opacity = 0.72 * zoom;
+      const lift = oB(seg(t, a + 4.0, a + 4.8));
+      $('phero').style.transform = `translateZ(${lift * 50}px)`;
+      $('phero').style.boxShadow = zoom > 0 ? `0 ${30 * lift}px ${90 * lift}px rgba(0,0,0,${0.5 * lift}), 0 0 0 1px rgba(253,185,19,${0.35 * lift})` : 'none';
+      $('hgloss').style.backgroundPosition = `${lerp(130, -30, ioC(seg(t, a + 4.6, a + 5.6)))}% 0`;
+      for (let i = 0; i < 5; i++) { const q = seg(t, a + 4.75 + i * 0.09, a + 5.35 + i * 0.09), e = oB(q, 2.2), hot = i === 4;
+        const el = $('pt' + i); el.style.transform = `translateZ(${50 + e * (hot ? 120 : 80)}px) translateY(${-e * (hot ? 26 : 14)}px)`;
+        el.style.boxShadow = q > 0 ? `0 ${20 * e}px ${60 * e}px rgba(0,0,0,${0.45 * clamp(e)})${hot ? `,0 0 ${50 * clamp(e)}px rgba(253,185,19,${0.55 * clamp(e)})` : ''}` : 'none';
+        el.style.visibility = lift > 0 ? 'visible' : 'hidden'; $('sk' + i).style.visibility = q > 0 ? 'visible' : 'hidden'; }
+    } else { hide(pg); for (let i = 0; i < 5; i++) { hide($('pt' + i)); hide($('sk' + i)); } }
+    title($('t2'), t, a + 0.9, a + 3.1, [140, 560]); }
+
+  // ═ S3 öneriler ═
+  { const a = S3, cx = -210, cy = -230, cs = 1.02;
+    const ent = oX(seg(t, a - 0.15, a + 0.9)), out = ioC(seg(t, a + 5.7, a + 6.4));
+    if (t > a - 0.3 && t < S4 + 0.3) {
+      put($('card0'), { x: lerp(1500, cx, ent), y: cy - out * 900, ry: lerp(-55, 0, ent) + out * 10, rx: out * 20, z: lerp(-400, 0, ent), s: cs, op: 1, br: lerp(1, 0.7, oC(seg(t, a + 2.3, a + 2.9))) });
+      const sp = seg(t, a + 0.8, a + 2.0); $('scan').style.left = `${lerp(-200, 980, ioC(sp))}px`; $('scan').style.opacity = sp > 0 && sp < 1 ? 1 : 0;
+      $('cgloss').style.backgroundPosition = `${lerp(130, -30, ioC(seg(t, a + 0.5, a + 1.6)))}% 0`;
+      // sinyal şeritleri: karttan ayrılır, ikiye bölünür
+      const sigY0 = cy + 114 * cs, W2 = 475;
+      [[0, 150, a + 2.2], [1, 320, a + 3.0]].forEach(([k, ty, t0]) => {
+        const d = ioS(seg(t, t0, t0 + 0.9)), sp2 = oQ(seg(t, t0 + 0.7, t0 + 1.5)), sc = lerp(cs, 1.18, d);
+        const fromY = k === 0 ? sigY0 : 700, x0 = k === 0 ? cx : 0, y = lerp(fromY, ty, d) - out * 900;
+        const halfOff = W2 / 2 * sc, gap = sp2 * 330;
+        const la = $(`s${k}a`), lb = $(`s${k}b`);
+        const op = k === 0 ? (d > 0 ? 1 : 0) : oC(seg(t, t0, t0 + 0.5));
+        put(la, { x: lerp(x0, 0, d) - halfOff - gap, y, s: sc, op, z: 40 * Math.sin(Math.PI * d) });
+        put(lb, { x: lerp(x0, 0, d) + halfOff + gap, y, s: sc, op, z: 40 * Math.sin(Math.PI * d) });
+        // bağlayıcı
+        const cp = oC(seg(t, t0 + 1.25, t0 + 1.9)), c = $('c' + k), L = 2 * gap - 60;
+        c.style.visibility = 'visible'; c.style.left = `${960 - gap + 30}px`; c.style.top = `${540 + y}px`; c.style.width = `${Math.max(0, L)}px`; c.style.transform = `scaleX(${cp})`; c.style.opacity = cp > 0 ? 1 - out : 0;
+        const pp = seg(t, t0 + 1.6, t0 + 3.2); $(`c${k}p`).style.left = `${((pp * 1.6) % 1) * L - 7}px`; $(`c${k}p`).style.opacity = pp > 0 && pp < 1 ? 1 : 0;
+        const tg = oB(seg(t, t0 + 1.9, t0 + 2.35)); put($('tg' + k), { x: 0, y: y - 30, s: tg, op: clamp(tg * 2) * (1 - out) });
+        lb.style.boxShadow = `0 30px 80px rgba(0,0,0,.45), 0 0 0 ${2 * clamp(tg)}px rgba(253,185,19,${0.9 * clamp(tg)}), 0 0 ${60 * clamp(tg)}px rgba(253,185,19,${0.35 * clamp(tg)})`;
+      });
+    } else ['card0', 's0a', 's0b', 's1a', 's1b', 'tg0', 'tg1', 'c0', 'c1'].forEach(i => hide($(i)));
+    title($('t3'), t, a + 0.5, a + 5.6, [1330, 300]); }
+
+  // ═ S4 görevler ═
+  { const a = S4, px = 250, py = 70;
+    if (t > a - 0.3 && t < S5 + 0.3) {
+      const b = oX(seg(t, a - 0.1, a + 0.8)), morph = ioS(seg(t, a + 1.0, a + 1.8)), out = ioC(seg(t, a + 6.2, a + 6.9));
+      put($('bulten'), { x: lerp(1200, px, b), y: lerp(-100, py, b), ry: lerp(-50, 0, b), s: lerp(1.3, 2.4, morph), op: 1 - oC(seg(t, a + 1.2, a + 1.7)) });
+      put($('tasks'), { x: px, y: py - out * 60, s: lerp(0.4, 1, morph), rx: out * -30, z: -out * 900, op: morph * (1 - out) });
+      ['tk0', 'tk1', 'tk2'].forEach((id, i) => { const q = oQ(seg(t, a + 1.5 + i * 0.12, a + 2.2 + i * 0.12)); $(id).style.opacity = q; $(id).style.transform = `translateY(${(1 - q) * 24}px)`; });
+      // imleç: Ata → tıkla; durum → tamamlandı
+      const asg = $('asg').getBoundingClientRect(), st2 = $('st2').getBoundingClientRect(), sr = $('stage').getBoundingClientRect(), k = sr.width / 1920;
+      const P1 = [(asg.left - sr.left) / k + 40, (asg.top - sr.top) / k + 20], P2 = [(st2.right - sr.left) / k - 60, (st2.top - sr.top) / k + 18];
+      const cxp = kf(t, [[a + 2.2, 1500], [a + 3.05, P1[0], oQ], [a + 4.0, P1[0]], [a + 4.7, P2[0], ioC], [a + 6.0, P2[0]], [a + 6.4, 1700]]);
+      const cyp = kf(t, [[a + 2.2, 1100], [a + 3.05, P1[1], oQ], [a + 4.0, P1[1]], [a + 4.7, P2[1], ioC], [a + 6.0, P2[1]], [a + 6.4, 1200]]);
+      const press = 1 - 0.18 * (Math.exp(-Math.pow((t - (a + 3.1)) / 0.06, 2)) + Math.exp(-Math.pow((t - (a + 4.75)) / 0.06, 2)));
+      const cv = t > a + 2.2 && t < a + 6.4; $('cursor').style.visibility = cv ? 'visible' : 'hidden';
+      $('cursor').style.transform = `translate(${cxp - 6}px,${cyp - 3}px) scale(${press})`;
+      const rp = [[a + 3.1, P1], [a + 4.75, P2]].map(([tc, P]) => [seg(t, tc, tc + 0.5), P]).find(([q]) => q > 0 && q < 1);
+      if (rp) { const [q, P] = rp; $('rip').style.left = P[0] + 'px'; $('rip').style.top = P[1] + 'px'; $('rip').style.opacity = 1 - q; $('rip').style.transform = `scale(${0.3 + oC(q) * 1.4})`; } else $('rip').style.opacity = 0;
+      const as = oB(seg(t, a + 3.25, a + 3.7), 2.4); $('asg').style.opacity = 1 - clamp(as * 2); $('asg').style.transform = `scale(${1 - 0.3 * clamp(as)})`;
+      $('av0').style.opacity = clamp(as * 2); $('av0').style.transform = `scale(${as})`; $('av0n').style.opacity = oC(seg(t, a + 3.45, a + 3.8));
+      const sa = oC(seg(t, a + 3.5, a + 3.8)); $('st0a').style.opacity = 1 - sa; $('st0b').style.opacity = sa; $('st0b').style.transform = `scale(${lerp(0.8, 1, oB(sa))})`;
+      const tp = oB(seg(t, a + 3.6, a + 4.1)), to = oC(seg(t, a + 5.4, a + 5.8)); put($('toast'), { x: px + 330, y: py - 360 + (1 - tp) * 40, s: 1, op: clamp(tp) * (1 - to) * (1 - out) });
+      const dn = oC(seg(t, a + 4.85, a + 5.15)); $('st2a').style.opacity = 1 - dn; $('st2b').style.opacity = dn; $('st2b').style.transform = `scale(${lerp(0.7, 1, oB(dn, 2.5))})`;
+      $('chk').style.strokeDashoffset = 16 * (1 - oC(seg(t, a + 5.0, a + 5.4)));
+      const pb = oC(seg(t, a + 5.0, a + 5.7)); $('pbar').style.width = `${33.3 * pb}%`; $('pdone').textContent = pb > 0.5 ? '1' : '0';
+      $('tk2').style.background = `rgba(227,243,234,${0.55 * dn})`;
+    } else { hide($('bulten')); hide($('tasks')); hide($('toast')); $('cursor').style.visibility = 'hidden'; $('rip').style.opacity = 0; }
+    title($('t4'), t, a + 0.6, a + 6.0, [140, 560]); }
+
+  // ═ S5 taahhütler ═
+  { const a = S5;
+    if (t > a - 0.3 && t < S6 + 0.3) {
+      const e = oX(seg(t, a - 0.1, a + 1.0)), e2 = oX(seg(t, a + 0.15, a + 1.2)), out = ioC(seg(t, a + 6.2, a + 6.9));
+      put($('tbg'), { x: lerp(300, 120, e) - t * 6, y: 140, z: -1300, rx: 38, rz: -8, ry: -10, op: 0.32 * e * (1 - out), blur: 3 });
+      put($('tring'), { x: -620 - out * 700, y: lerp(700, 120, e), rx: lerp(40, 0, e), op: 1 });
+      put($('tlist'), { x: 240 + out * 900, y: lerp(800, 125, e2), rx: lerp(40, 0, e2), op: 1 });
+      const r = ioC(seg(t, a + 0.8, a + 2.6)); $('rarc').style.strokeDashoffset = 691.15 * (1 - 0.66 * r); $('rnum').textContent = Math.round(66 * r);
+      $('knum').textContent = trNum(113702.05 * oC(seg(t, a + 1.6, a + 3.0)), 2);
+      TR.forEach(([, , v], i) => { const q = oQ(seg(t, a + 1.5 + i * 0.14, a + 2.6 + i * 0.14)); $('tf' + i).style.width = `${v * q}%`;
+        $('tv' + i).textContent = '%' + trNum(v * q, v % 1 ? (Math.round(v * 100) % 10 ? 2 : 1) : 0); });
+      const rk = seg(t, a + 3.2, a + 5.6); $('risk').style.opacity = rk > 0 ? 0.35 + 0.65 * Math.abs(Math.sin(rk * Math.PI * 3)) : 0;
+    } else ['tbg', 'tring', 'tlist'].forEach(i => hide($(i)));
+    title($('t5'), t, a + 0.4, a + 6.0, [140, 190]); }
+
+  // ═ S6 karusel ═
+  { const a = S6, R = 1900, stepA = 30;
+    if (t > a - 0.3 && t < S7 + 0.5) {
+      const th = kf(t, [[a + 0.2, -30], [a + 0.9, 0, oQ], [a + 1.55, 0], [a + 1.95, stepA, oQ], [a + 2.55, stepA], [a + 2.95, 2 * stepA, oQ], [a + 3.55, 2 * stepA], [a + 3.95, 3 * stepA, oQ]]);
+      const ent = oX(seg(t, a - 0.1, a + 1.0)), col = ioC(seg(t, S7 - 0.45, S7 + 0.1));
+      $('car').style.visibility = 'visible';
+      $('car').style.transform = `translate(-50%,-50%) translate3d(0,${-10}px,${lerp(-3200, -R - 60, ent) - col * 4000}px) rotateX(${lerp(20, 4, ent)}deg) rotateY(${-th}deg)`;
+      for (let i = 0; i < 4; i++) { const ang = i * stepA, d = Math.abs(ang - th); const el = $('cs' + i);
+        el.style.visibility = d < 75 ? 'visible' : 'hidden'; el.style.backfaceVisibility = 'hidden';
+        el.style.transform = `rotateY(${ang}deg) translateZ(${R}px)`; el.style.filter = `brightness(${lerp(1, 0.35, clamp(d / stepA))})`;
+        el.style.boxShadow = `0 50px 140px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,${0.12 * (1 - clamp(d / stepA))})`; el.style.borderRadius = '16px'; }
+      put($('cap'), { y: 440, op: oC(seg(t, a + 0.4, a + 1.0)) * (1 - col) });
+      const act = th / stepA; for (let i = 0; i < 4; i++) $('cw' + i).style.color = `rgba(${Math.abs(act - i) < 0.5 ? '253,185,19' : '245,243,238'},${lerp(1, 0.3, clamp(Math.abs(act - i) * 1.4))})`;
+    } else { hide($('car')); hide($('cap')); for (let i = 0; i < 4; i++) hide($('cs' + i)); } }
+
+  // ═ S7 kapanış ═
+  { const a = S7; $('flash').style.opacity = 0.9 * Math.exp(-Math.pow((t - a) / 0.16, 2)) + (t > a ? 0.25 * Math.exp(-(t - a) * 1.5) : 0);
+    if (t > a - 0.05) { const m = oB(seg(t, a, a + 0.7), 1.6), wm = oQ(seg(t, a + 0.35, a + 1.2));
+      put($('logo'), { y: -40 + (1 - m) * 20, s: lerp(0.85, 1, m), op: clamp(m * 2) });
+      $('mark').style.transform = `scale(${m}) rotate(${(1 - m) * -12}deg)`;
+      [0.42, 0.68, 0.94].forEach((h, i) => { const q = oB(seg(t, a + 0.45 + i * 0.1, a + 0.95 + i * 0.1), 2); $('b' + i).style.height = `${64 * h * q}px`; });
+      const wmEl = $('wm'); wmEl.style.opacity = wm; wmEl.style.transform = `translateX(${(1 - wm) * -30}px)`; wmEl.style.filter = `blur(${(1 - wm) * 8}px)`;
+      put($('endline'), { y: 150 + (1 - oQ(seg(t, a + 1.4, a + 2.3))) * 20, op: oC(seg(t, a + 1.4, a + 2.3)) });
+      put($('disc'), { y: 440, op: 0.8 * oC(seg(t, a + 2.2, a + 2.9)) });
+    } else ['logo', 'endline', 'disc'].forEach(i => hide($(i)));
+    $('fade').style.opacity = ioC(seg(t, DUR - 0.8, DUR)) * 0.95 + (1 - oC(seg(t, 0, 0.6))); }
+}
+window.seek = seek; window.DUR = DUR;
+window.ready = document.fonts.ready.then(() => Promise.all([...document.images].map(i => i.decode().catch(() => { }))))
+  .then(() => document.fonts.load("italic 500 80px Fraunces", 'bakmalıyım')).then(() => seek(0));
+
+// tarayıcıda: sahneyi ekrana sığdır ve oynat (boşluk: duraklat, ←/→: 2 sn)
+if (!/[?&]render/.test(location.search)) {
+  // flex içinde ölçeklenmiş sahne için sarmalayıcı boyutu
+  const wrap = document.createElement('div'); wrap.style.cssText = 'position:relative;overflow:hidden'; $('stage').before(wrap); wrap.appendChild($('stage'));
+  const fit2 = () => { const k = Math.min(innerWidth / 1920, innerHeight / 1080); $('stage').style.transform = `scale(${k})`; wrap.style.width = 1920 * k + 'px'; wrap.style.height = 1080 * k + 'px'; };
+  addEventListener('resize', fit2); fit2();
+  let t0 = null, paused = false, pt = 0;
+  window.ready.then(() => requestAnimationFrame(function loop(now) { if (t0 === null) t0 = now; const t = paused ? pt : ((now - t0) / 1000) % (DUR + 1); seek(Math.min(t, DUR)); requestAnimationFrame(loop); }));
+  addEventListener('keydown', e => { const now = performance.now(), cur = ((now - t0) / 1000) % (DUR + 1);
+    if (e.code === 'Space') { if (paused) { t0 = now - pt * 1000; paused = false; } else { pt = cur; paused = true; } e.preventDefault(); }
+    if (e.code === 'ArrowRight' || e.code === 'ArrowLeft') { const d = e.code === 'ArrowRight' ? 2 : -2; if (paused) pt = clamp(pt + d, 0, DUR); else t0 -= d * 1000; } });
+} else document.body.classList.add('render');
+</script></body></html>
